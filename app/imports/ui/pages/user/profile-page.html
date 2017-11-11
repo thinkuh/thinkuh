@@ -1,0 +1,43 @@
+<template name="Profile_Page">
+
+  {{#if Template.subscriptionsReady}}
+
+  <div class="ui text container segment">
+    <div class="ui dividing header">
+      Profile
+    </div>
+    <form class="ui equal width form profile-data-form {{ successClass }} {{ errorClass }}">
+
+      <div class="fields">
+        {{> Text_Form_Control label="First" placeholder="First" value=profile.firstName errorMessage=(fieldError
+        "firstName")}}
+        {{> Text_Form_Control label="Last" placeholder="Last" value=profile.lastName errorMessage=(fieldError
+        "lastName")}}
+      </div>
+      <div class="field"> {{> Text_Form_Control label="Picture" placeholder="http://foo.com/shot.jpg"
+        value=profile.picture errorMessage=(fieldError "picture")}}
+      </div>
+
+      <div class="field">
+        {{> Text_Form_Control label="Class Standing" placeholder="~ Year" value=profile.standing errorMessage=(fieldError
+        "classStanding")}}
+        {{> Select_Form_Control label="Majors" options=majors errorMessage=(fieldError "majors") multiple=true }}
+        {{> Select_Form_Control label="Clubs and Organizations" options=clubs errorMessage=(fieldError "clubs")
+        multiple=true }}
+      </div>
+
+      {{> TextArea_Form_Control label="About Me" value=profile.about placeholder="Short about statement here"
+      errorMessage=(fieldError "about")}}
+
+      <button class="ui primary button" type="submit">Submit</button>
+      {{#if displaySuccessMessage}}
+      <div class="ui success message">
+        <p>Profile data successfully updated.</p>
+      </div>
+      {{/if}}
+    </form>
+  </div>
+
+  {{/if}}
+
+</template>

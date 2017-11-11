@@ -1,0 +1,42 @@
+{
+  "comment": "Initial contents for the ThinkUH database. For development purposes only.",
+  "collections": [
+    {
+      "name": "ClubCollection",
+      "contents": [
+        {
+          "name": "Evolutionary Computation",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "MajorCollection",
+      "contents": [
+        {
+          "name": "Evolutionary Computation",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "ProfileCollection",
+      "contents": [
+        {
+          "username": "altenber",
+          "firstName": "Lee",
+          "lastName": "Altenberg",
+          "picture": "/images/altenberg.jpg",
+          "standing": "Associate Professor, Information and Computer Sciences",
+          "majors": [
+            "Evolutionary Computation"
+          ],
+          "clubs": [
+            "Evolutionary Computation"
+          ],
+          "about": "I am an Associate Professor of Information and Computer Sciences at the University of Hawaii."
+        }
+      ]
+    }
+  ]
+}

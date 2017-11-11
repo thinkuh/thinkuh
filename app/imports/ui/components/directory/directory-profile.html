@@ -1,0 +1,24 @@
+<template name="Directory_Profile">
+
+  <div class="card">
+    <div class="content">
+      <img class="right floated mini ui image" src="{{ profile.picture }}">
+      <div class="header">
+        {{ profile.firstName }} {{ profile.lastName }}
+      </div>
+      <div class="meta">
+        {{ profile.standing }}
+      </div>
+      <div class="description">
+        {{ profile.about }}
+      </div>
+      <div style="margin-top: 10px">
+        {{#each major in profile.majors}}
+          <a style="margin-bottom: 2px" class="ui teal tag small label">{{major}}</a>
+        {{/each}}
+      </div>
+
+    </div>
+  </div>
+
+</template>
