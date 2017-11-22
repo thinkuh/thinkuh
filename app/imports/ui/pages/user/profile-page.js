@@ -58,10 +58,8 @@ Template.Profile_Page.events({
     const lastName = event.target.Last.value;
     const picture = event.target.Picture.value;
     const standing = event.target['Class Standing'].value;
-    const selectedMajors = _.filter(event.target.Majors.selectedOptions, (option) => option.selected);
-    const majors = _.map(selectedMajors, (option) => option.value);
-    const selectedClubs = _.filter(event.target['Clubs and Organizations'].selectedOptions, (option) => option.selected);
-    const clubs = _.map(selectedClubs, (option) => option.value);
+    const majors = _.map(_.filter(event.target.Majors.selectedOptions, (option) => option.selected), (option) => option.value);
+    const clubs = _.map(_.filter(event.target['Clubs and Organizations'].selectedOptions, (option) => option.selected), (option) => option.value);
     const about = event.target['About Me'].value;
 
     const updatedProfileData = {

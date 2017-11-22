@@ -68,6 +68,32 @@ userRoutes.route('/filter', {
   },
 });
 
+/*                        MAJOR ROUTES                      */
+
+function addMajorBodyClass() {
+  $('body').addClass('major-page-body');
+}
+
+function removeMajorBodyClass() {
+  $('body').removeClass('major-page-body');
+}
+
+const majorRoutes = FlowRouter.group({
+  prefix: '/:username/:major',
+  name: 'majorRoutes',
+  triggersEnter: [addMajorBodyClass],
+  triggersExit: [removeMajorBodyClass],
+});
+
+export const majorHomePageRouteName = 'Major_Page';
+majorRoutes.route('/home', {
+  name: majorHomePageRouteName,
+  action() {
+    BlazeLayout.render('Major_Layout', { main: majorHomePageRouteName });
+  },
+});
+
+
 /*                        MISC ROUTES                       */
 FlowRouter.notFound = {
   action() {
