@@ -4,6 +4,9 @@
     <div class="content">
       <img class="right floated mini ui image" src="{{ profile.picture }}">
       <div class="header">
+        {{> User_Popup profile=profile }}
+      </div>
+      <div class="meta">
         {{ profile.firstName }} {{ profile.lastName }}
       </div>
       <div class="meta">
