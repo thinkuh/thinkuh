@@ -1,0 +1,1 @@
+import './major-page.html';

@@ -68,11 +68,36 @@ userRoutes.route('/filter', {
   },
 });
 
+<<<<<<< HEAD
 export const classPageRouteName = 'Class_Page';
 userRoutes.route('/class', {
   name: classPageRouteName,
   action() {
     BlazeLayout.render('Class_Layout', { main: classPageRouteName });
+=======
+/*                        MAJOR ROUTES                      */
+
+function addMajorBodyClass() {
+  $('body').addClass('major-page-body');
+}
+
+function removeMajorBodyClass() {
+  $('body').removeClass('major-page-body');
+}
+
+const majorRoutes = FlowRouter.group({
+  prefix: '/:username/:major',
+  name: 'majorRoutes',
+  triggersEnter: [addMajorBodyClass],
+  triggersExit: [removeMajorBodyClass],
+});
+
+export const majorHomePageRouteName = 'Major_Page';
+majorRoutes.route('/home', {
+  name: majorHomePageRouteName,
+  action() {
+    BlazeLayout.render('Major_Layout', { main: majorHomePageRouteName });
+>>>>>>> fe638a97292aeb0b595d811bec9e994cefc4541b
   },
 });
 

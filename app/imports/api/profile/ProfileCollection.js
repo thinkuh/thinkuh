@@ -27,7 +27,9 @@ class ProfileCollection extends BaseCollection {
       picture: { type: SimpleSchema.RegEx.Url, optional: true },
       standing: { type: String, optional: true },
       majors: { type: Array, optional: true },
+      'majors.$': { type: String },
       clubs: { type: Array, optional: true },
+      'clubs.$': { type: String },
       about: { type: String, optional: true },
     }, { tracker: Tracker }));
   }
