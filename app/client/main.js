@@ -18,3 +18,5 @@ import '/imports/api/base';
 import '/imports/api/profile';
 import '/imports/api/club';
 import '/imports/api/major';
+import '/imports/ui/pages/class';
+import '/imports/ui/layouts/class';
