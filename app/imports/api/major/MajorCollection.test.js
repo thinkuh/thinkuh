@@ -9,8 +9,9 @@ import { removeAllEntities } from '/imports/api/base/BaseUtilities';
 if (Meteor.isServer) {
   describe('MajorCollection', function testSuite() {
     const name = 'Software Engineering';
+    const url = 'SE';
     const description = 'Tools and techniques for team-based development of high quality software systems';
-    const defineObject = { name, description };
+    const defineObject = { name, url, description };
 
     before(function setup() {
       removeAllEntities();
