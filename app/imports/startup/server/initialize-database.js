@@ -2,6 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { Profiles } from '/imports/api/profile/ProfileCollection';
 import { Clubs } from '/imports/api/club/ClubCollection';
 import { Majors } from '/imports/api/major/MajorCollection';
+import { Forums } from '/imports/api/forum/ForumCollection';
+import { Comments } from '/imports/api/comment/CommentCollection';
 import { _ } from 'meteor/underscore';
 
 /* global Assets */
@@ -41,5 +43,22 @@ Meteor.startup(() => {
     _.each(collectionList, collection => {
       restoreCollection(collection, restoreJSON);
     });
+    const commentId = Comments.define({
+      author: 'atasato',
+      dateCreated: new Date(),
+      content: 'Hello this is an **awesome** Markdown comment!',
+      replies: [],
+    });
+    console.log(`commentId: ${commentId}`);
+    Forums._collection.update(
+      { _id: 0 },
+      {
+        $set: {
+          _id: 0,
+          comments: [commentId],
+        },
+      },
+      { upsert: true },
+    );
   }
 });

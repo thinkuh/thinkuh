@@ -1,0 +1,46 @@
+<!-- Takes a Comment as an argument, as well as a Profile -->
+
+<template name="Comment">
+{{#if Template.subscriptionsReady}}
+  {{#let commentData=(getComment commentId)}}
+    <div class="comment">
+      {{#let profileData=(getCommentProfile commentData.author)}}
+      <a class="avatar">
+        <img src="{{getProfilePicture (profileData.picture)}}">
+      </a>
+      {{/let}}
+      <div class="content">
+        <a class="author">{{commentData.author}}</a>
+        <div class="metadata">
+          <span class="date">{{commentData.dateCreated}}</span>
+        </div>
+        <div class="text">
+          {{{ renderMarkdown commentData.content}}}
+        </div>
+        <div class="actions">
+          <a class="ui blue circular tiny js-comment-reply-button label">Reply</a>
+          {{#if (anyValidReplies commentData.replies) }}
+            <a class="ui blue circular tiny js-comment-toggle-replies-button label">{{#if isRepliesOpen}}Hide Replies{{else}}Show Replies{{/if}}</a>
+          {{/if}}
+          {{#if isAuthorOfComment commentData}}
+            <a class="ui red circular tiny js-comment-delete-button label">Delete <i class="delete icon"></i></a>
+          {{/if}}
+          {{#if isReplying}}
+            {{> Text_Editor_Box }}
+          {{/if}}
+        </div>
+      </div>
+      <div class="comments">
+        {{#if isRepliesOpen}}
+          {{#let updatedCommentData=(getComment commentId)}}
+            {{#each reply in updatedCommentData.replies}}
+              {{> Comment commentId=reply }}
+            {{/each}}
+          {{/let}}
+        {{/if}}
+      </div>
+    </div>
+  {{/let}}
+{{/if}}
+
+</template>
