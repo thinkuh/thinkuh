@@ -68,14 +68,6 @@ userRoutes.route('/filter', {
   },
 });
 
-export const classPageRouteName = 'Class_Page';
-userRoutes.route('/class', {
-  name: classPageRouteName,
-  action() {
-    BlazeLayout.render('Class_Layout', { main: classPageRouteName });
-  },
-});
-
 /*                        MAJOR ROUTES                      */
 
 function addMajorBodyClass() {
@@ -87,7 +79,7 @@ function removeMajorBodyClass() {
 }
 
 const majorRoutes = FlowRouter.group({
-  prefix: '/:username/:major',
+  prefix: '/:major',
   name: 'majorRoutes',
   triggersEnter: [addMajorBodyClass],
   triggersExit: [removeMajorBodyClass],
@@ -98,6 +90,14 @@ majorRoutes.route('/home', {
   name: majorHomePageRouteName,
   action() {
     BlazeLayout.render('Major_Layout', { main: majorHomePageRouteName });
+  },
+});
+
+export const majorClassPageRouteName = 'Class_Page';
+majorRoutes.route('/class', {
+  name: majorClassPageRouteName,
+  action() {
+    BlazeLayout.render('Major_Layout', { main: majorClassPageRouteName });
   },
 });
 

@@ -1,11 +1,12 @@
+import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
-import { FlowRouter } from 'meteor/kadira:flow-router';
+/*import { FlowRouter } from 'meteor/kadira:flow-router';*/
 import { Departments } from '/imports/api/department/DepartmentCollection';
 import { Majors } from '/imports/api/major/MajorCollection';
 
 Template.User_Header.helpers({
   routeUserName() {
-    return FlowRouter.getParam('username');
+    return Meteor.user().profile.name;
   },
 });
 

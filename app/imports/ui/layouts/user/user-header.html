@@ -2,8 +2,7 @@
   <div class="ui top fixed borderless inverted menu">
     <div class="ui container">
       <div class="item"><h1>ThinkUH</h1></div>
-      <a class="{{isActiveRoute " Profile_Page"}} item" href="{{pathFor "Profile_Page"
-      username=routeUserName}}">Profile</a>
+      <a class="{{isActiveRoute 'Profile_Page'}} item" href="{{pathFor 'Profile_Page' username=routeUserName}}">Profile</a>
       <div class="ui dropdown item">
         <div class="text">Department</div>
         <i class="dropdown icon"></i>
@@ -17,7 +16,7 @@
               {{#each dmajor in department.majors}}
                 {{#if major.name = dmajor}}
                   <div class="menu">
-                    <a class="item" href="{{pathFor 'Major_Page' username=routeUserName major=major.url}}">{{major.name}}</a>
+                    <a class="item" href="{{pathFor 'Major_Page' major=major.url}}">{{major.name}}</a>
                   </div>
                   <!--{{> Header_Item major=major}}-->
                 {{/if}}
