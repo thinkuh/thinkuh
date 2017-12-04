@@ -1,5 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '/imports/api/base/BaseCollection';
+import { Majors } from '/imports/api/major/MajorCollection';
 import { check } from 'meteor/check';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
@@ -11,16 +12,16 @@ import { Tracker } from 'meteor/tracker';
  * Represents a specific interest, such as "Software Engineering".
  * @extends module:Base~BaseCollection
  */
-class MajorCollection extends BaseCollection {
+class DepartmentCollection extends BaseCollection {
 
   /**
    * Creates the Interest collection.
    */
   constructor() {
-    super('Major', new SimpleSchema({
+    super('Department', new SimpleSchema({
       name: { type: String },
-      url: { type: String },
-      description: { type: String, optional: true },
+      majors: { type: Array, optional: true },
+      'majors.$': { type: String },
     }, { tracker: Tracker }));
   }
 
@@ -35,14 +36,20 @@ class MajorCollection extends BaseCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined name.
    * @returns The newly created docID.
    */
-  define({ name, url, description }) {
+  define({ name, majors }) {
     check(name, String);
-    check(url, String);
-    check(description, String);
     if (this.find({ name }).count() > 0) {
       throw new Meteor.Error(`${name} is previously defined in another Major`);
     }
-    return this._collection.insert({ name, url, description });
+
+    // Throw an error if any of the passed Major names are not defined.
+    Majors.assertNames(majors);
+
+    // Throw an error if there are duplicates in the passed major names.
+    if (majors.length !== _.uniq(majors).length) {
+      throw new Meteor.Error(`${majors} contains duplicates`);
+    }
+    return this._collection.insert({ name, majors });
   }
 
   /**
@@ -51,9 +58,9 @@ class MajorCollection extends BaseCollection {
    * @returns { String } An interest name.
    * @throws { Meteor.Error} If the interest docID cannot be found.
    */
-  findName(majorID) {
-    this.assertDefined(majorID);
-    return this.findDoc(majorID).name;
+  findName(departmentID) {
+    this.assertDefined(departmentID);
+    return this.findDoc(departmentID).name;
   }
 
   /**
@@ -62,8 +69,8 @@ class MajorCollection extends BaseCollection {
    * @returns { Array }
    * @throws { Meteor.Error} If any of the instanceIDs cannot be found.
    */
-  findNames(majorIDs) {
-    return majorIDs.map(majorID => this.findName(majorID));
+  findNames(departmentIDs) {
+    return departmentIDs.map(departmentID => this.findName(departmentID));
   }
 
   /**
@@ -111,12 +118,12 @@ class MajorCollection extends BaseCollection {
   dumpOne(docID) {
     const doc = this.findDoc(docID);
     const name = doc.name;
-    const description = doc.description;
-    return { name, description };
+    const majors = doc.majors;
+    return { name, majors };
   }
 }
 
 /**
  * Provides the singleton instance of this class to all other entities.
  */
-export const Majors = new MajorCollection();
+export const Departments = new DepartmentCollection();
