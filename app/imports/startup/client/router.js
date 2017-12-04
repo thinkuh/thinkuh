@@ -72,7 +72,7 @@ export const classPageRouteName = 'Class_Page';
 userRoutes.route('/class', {
   name: classPageRouteName,
   action() {
-    BlazeLayout.render('Class_Layout', { main: classPageRouteName });
+    BlazeLayout.render('Class_Page', { main: classPageRouteName });
   },
 });
 
