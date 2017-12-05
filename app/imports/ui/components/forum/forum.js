@@ -15,6 +15,19 @@ Template.Forum.onCreated(function onCreated() {
   this.isLoggedIn = function isLoggedIn() {
     return !!Meteor.user();
   };
+  this.getForum = function getForum(id) {
+    if (!id) { return null; }
+    console.log(Template.currentData());
+    console.log(id);
+    console.log(`getforum: ${id}`);
+    if (Template.instance().state.get('forum') === null) {
+      const forum = Forums.findDoc(id);
+      Template.instance().state.set('forum', forum);
+    }
+    // console.log(Template.instance().state.get('forum'));
+    console.log(`getforum forumItem: ${JSON.stringify(Template.instance().state.get('forum'))}`);
+    return Template.instance().state.get('forum');
+  };
 });
 
 Template.Forum.events({
@@ -72,16 +85,8 @@ Template.Forum.helpers({
   },
 
   getForum: function getForum(id) {
-    console.log(Template.currentData());
-    console.log(id);
-    console.log(`getforum: ${id}`);
-    if (Template.instance().state.get('forum') === null) {
-      const forum = Forums.findDoc(id);
-      Template.instance().state.set('forum', forum);
-    }
-    // console.log(Template.instance().state.get('forum'));
-    console.log(`getforum forumItem: ${JSON.stringify(Template.instance().state.get('forum'))}`);
-    return Template.instance().state.get('forum');
-  },
+    if (!id) { return null; }
+    return Template.instance().getForum(id);
+  }
 
 });

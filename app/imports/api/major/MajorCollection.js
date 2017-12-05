@@ -4,6 +4,7 @@ import { check } from 'meteor/check';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
 import { Tracker } from 'meteor/tracker';
+import { Forums } from '/imports/api/forum/ForumCollection';
 
 /** @module Interest */
 
@@ -21,6 +22,7 @@ class MajorCollection extends BaseCollection {
       name: { type: String },
       url: { type: String },
       description: { type: String, optional: true },
+      forumId: { type: String },
     }, { tracker: Tracker }));
   }
 
@@ -39,10 +41,11 @@ class MajorCollection extends BaseCollection {
     check(name, String);
     check(url, String);
     check(description, String);
+    const forumId = Forums.define({ comments: [] });
     if (this.find({ name }).count() > 0) {
       throw new Meteor.Error(`${name} is previously defined in another Major`);
     }
-    return this._collection.insert({ name, url, description });
+    return this._collection.insert({ name, url, description, forumId });
   }
 
   /**
