@@ -18,14 +18,17 @@ Template.Comment.onCreated(function onCreated() {
   this.state.set('comment', null);
   this.state.set('commentProfile', null);
   this.state.set('isReplying', false);
+  this.state.set('idEditing', false);
   this.state.set('isRepliesOpen', false);
 
   this.isLoggedIn = function isLoggedIn() {
     return !!Meteor.user();
   };
   this.isAuthorOfComment = function isAuthorOfComment(comment) {
-    return comment.author === Meteor.user().profile.name;
-  }
+    if (!comment) { return false; }
+    const result = comment.author === Meteor.user().profile.name;
+    return !!result;
+  };
 });
 
 Template.Comment.onRendered({
@@ -48,6 +51,14 @@ Template.Comment.events({
     return false;
   },
 
+  'click .js-comment-edit-button'(event, instance) {
+    event.preventDefault();
+    event.stopPropagation();
+    instance.state.set('isEditing', !instance.state.get('isEditing'));
+    //console.log(`isEditing: ${instance.state.get('isEditing')}`);
+    return false;
+  },
+
   'click .js-comment-delete-button'(event, instance) {
     event.preventDefault();
     event.stopPropagation();
@@ -62,7 +73,7 @@ Template.Comment.events({
     return false;
   },
 
-  'submit .text-editor-box'(event, instance) {
+  'submit .js-comment-reply-textbox'(event, instance) {
     event.stopPropagation();
     event.preventDefault();
 
@@ -76,7 +87,7 @@ Template.Comment.events({
     const parentComment = instance.state.get('comment')._id;
 
     const newCommentData = {
-      author, dateCreated, content, replies, parentComment
+      author, dateCreated, content, replies, parentComment,
     };
 
     //console.log(event);
@@ -104,6 +115,58 @@ Template.Comment.events({
       //console.log(id);
       instance.state.set('isRepliesOpen', true);
       instance.state.set('isReplying', false);
+      event.target.reset();
+      return true;
+    }
+    console.log('NOT VALID');
+    const invalidKeys = instance.context.validationErrors();
+    console.log(invalidKeys);
+    return false;
+  },
+
+  'submit .js-comment-edit-textbox'(event, instance) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    let author = null;
+    const subjectComment = instance.state.get('comment');
+    if (instance.isLoggedIn()) {
+      author = Meteor.user().profile.name;
+    }
+    const content = event.target['text-editor-textarea'].value;
+    const dateUpdated = new Date();
+
+    const parentComment = subjectComment._id;
+    const dateCreated = subjectComment.dateCreated;
+    const replies = subjectComment.replies;
+
+    const newCommentData = {
+      author, dateCreated, content, replies, parentComment, dateUpdated,
+    };
+
+    //console.log(event);
+    //console.log(instance);
+    //console.log(newCommentData);
+
+    // Clear out any old validation errors.
+    instance.context.reset();
+    // Invoke clean so that updatedProfileData reflects what will be inserted.
+    const cleanData = Comments.getSchema().clean(newCommentData);
+    // Determine validity.
+    instance.context.validate(cleanData);
+
+    if (instance.context.isValid()) {
+      console.log('IS VALID');
+      const id = Comments.define(cleanData);
+      let updatedComment = instance.state.get('comment');
+      //console.log(`updatedComment: ${JSON.stringify(updatedComment)}`);
+      Comments.update(instance.state.get('comment')._id, {
+        $set: newCommentData,
+      });
+      instance.state.set('comment', updatedComment);
+      //console.log(`updatedComment: ${JSON.stringify(updatedComment)}`);
+      //console.log(id);
+      instance.state.set('isEditing', false);
       event.target.reset();
       return true;
     }
@@ -162,6 +225,10 @@ Template.Comment.helpers({
     return Template.instance().state.get('isReplying');
   },
 
+  isEditing: function isEditing() {
+    return Template.instance().state.get('isEditing');
+  },
+
   isLoggedIn: function isLoggedIn() {
     return this.isLoggedIn();
   },
@@ -171,10 +238,15 @@ Template.Comment.helpers({
   },
 
   anyValidReplies: function anyValidReplies(array) {
+    if (!array) { return false; }
     return array.length > 0;
   },
 
   isAuthorOfComment: function isAuthorOfComment(comment) {
     return Template.instance().isAuthorOfComment(comment);
+  },
+
+  replyCount: function replyCount(replies) {
+    return replies.length;
   },
 });

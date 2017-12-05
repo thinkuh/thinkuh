@@ -32,7 +32,7 @@ Template.Forum.events({
     const parentForum = instance.state.get('forum')._id;
 
     const newCommentData = {
-      author, dateCreated, content, replies, parentForum
+      author, dateCreated, content, replies, parentForum,
     };
 
     // console.log(event);
@@ -47,7 +47,6 @@ Template.Forum.events({
     instance.context.validate(cleanData);
 
     if (instance.context.isValid()) {
-
       const id = Comments.defineTopLevel(cleanData);
       const updatedForum = instance.state.get('forum');
       console.log(`updatedForum: ${JSON.stringify(updatedForum)}`);
@@ -80,7 +79,7 @@ Template.Forum.helpers({
       const forum = Forums.findDoc(id);
       Template.instance().state.set('forum', forum);
     }
-    //console.log(Template.instance().state.get('forum'));
+    // console.log(Template.instance().state.get('forum'));
     console.log(`getforum forumItem: ${JSON.stringify(Template.instance().state.get('forum'))}`);
     return Template.instance().state.get('forum');
   },

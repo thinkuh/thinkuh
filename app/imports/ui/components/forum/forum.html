@@ -1,7 +1,7 @@
 <!-- Takes a Comment as an argument, as well as a Profile -->
 
 <template name="Forum">
-
+  {{#if Template.subscriptionsReady}}
   <div class="ui container">
     <div class="ui comments">
       {{#let forumData=(getForum forumId)}}
@@ -10,8 +10,11 @@
           {{> Comment commentId=comment originForumId=forumId}}
         {{/each}}
         <h3>Comment Below</h3>
-        {{> Text_Editor_Box }}
+        {{> Text_Editor_Box textEditorBoxClass="js-new-comment-textbox" buttonColor="blue"}}
       {{/let}}
     </div>
   </div>
+  {{else}}
+    <p>Loading...</p>
+  {{/if}}
 </template>

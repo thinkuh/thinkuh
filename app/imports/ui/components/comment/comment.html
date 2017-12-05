@@ -15,24 +15,44 @@
         {{else}}
           <div class="author">[Deleted]</div>
         {{/if}}
-        <div class="metadata">
-          <span class="date">{{commentData.dateCreated}}</span>
-        </div>
+        {{#if commentData}}
+          <div class="metadata">
+            <span class="date">
+              {{#if commentData.dateUpdated}}
+                Updated: {{commentData.dateUpdated}}
+              {{else}}
+                Created: {{commentData.dateCreated}}
+              {{/if}}
+            </span>
+          </div>
+        {{/if}}
         <div class="text">
           {{{ renderMarkdown commentData.content}}}
         </div>
         <div class="actions">
-          {{#if commentData}}
-          <a class="ui blue circular tiny js-comment-reply-button label">Reply</a>
-          {{/if}}
           {{#if (anyValidReplies commentData.replies) }}
-            <a class="ui blue circular tiny js-comment-toggle-replies-button label">{{#if isRepliesOpen}}Hide Replies{{else}}Show Replies{{/if}}</a>
+            <a class="ui blue circular tiny js-comment-toggle-replies-button label">
+              {{#if isRepliesOpen}}
+                <i class="ui toggle up icon"></i>{{replyCount commentData.replies}}
+              {{else}}
+                <i class="ui toggle down icon"></i>{{replyCount commentData.replies}}
+              {{/if}}
+            </a>
+          {{/if}}
+          {{#if commentData}}
+            <a class="ui blue circular tiny js-comment-reply-button label"><i class="reply icon"></i>Reply</a>
           {{/if}}
           {{#if isAuthorOfComment commentData}}
-            <a class="ui red circular tiny js-comment-delete-button label">Delete <i class="delete icon"></i></a>
+            <a class="ui pink circular tiny js-comment-edit-button label"><i class="pencil icon"></i>Edit</a>
+          {{/if}}
+          {{#if isAuthorOfComment commentData}}
+            <a class="ui red circular tiny js-comment-delete-button label"><i class="trash outline icon"></i>Delete</a>
           {{/if}}
           {{#if isReplying}}
-            {{> Text_Editor_Box }}
+            {{> Text_Editor_Box textEditorBoxClass="js-comment-reply-textbox" buttonColor="blue" }}
+          {{/if}}
+          {{#if isEditing}}
+            {{> Text_Editor_Box textEditorBoxClass="js-comment-edit-textbox" buttonColor="pink" textareaContent=(commentData.content) }}
           {{/if}}
         </div>
       </div>
