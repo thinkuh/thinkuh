@@ -6,7 +6,6 @@ import '/imports/ui/components/landing';
 import '/imports/ui/components/text-editor-box';
 import '/imports/ui/components/comment';
 import '/imports/ui/components/forum';
-import '/imports/ui/layouts/class';
 import '/imports/ui/layouts/directory';
 import '/imports/ui/layouts/landing';
 import '/imports/ui/layouts/major';
