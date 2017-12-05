@@ -45,11 +45,12 @@ Meteor.startup(() => {
     _.each(collectionList, collection => {
       restoreCollection(collection, restoreJSON);
     });
-    const commentId = Comments.define({
+    const commentId = Comments.defineTopLevel({
       author: 'altenber',
       dateCreated: new Date(),
       content: 'Hello! Welcome to the Comment test!',
       replies: [],
+      upvotingUsers: ['altenber'],
       parentForum: 'placeholder',
     });
     console.log(`commentId: ${commentId}`);
@@ -74,6 +75,7 @@ Meteor.startup(() => {
     // Put the pre-created dummy forum's ID into a Meteor.method.
     Meteor.methods({
       getDummyForumId: function getDummyForum() {
+        console.log(`getDummyForumId: ${forumId}`);
         return forumId;
       },
     });

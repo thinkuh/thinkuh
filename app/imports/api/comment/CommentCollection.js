@@ -23,6 +23,8 @@ class CommentCollection extends BaseCollection {
       content: { type: String },
       replies: { type: Array },
       'replies.$': { type: String },
+      upvotingUsers: { type: Array },
+      'upvotingUsers.$': { type: String },
       dateUpdated: { type: Date, optional: true },
       parentForum: { type: String, optional: true },
       parentComment: { type: String, optional: true },
@@ -40,30 +42,33 @@ class CommentCollection extends BaseCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined name.
    * @returns The newly created docID.
    */
-  define({ author, dateCreated, content, replies }) {
+  define({ author, dateCreated, content, replies, upvotingUsers }) {
     check(author, String);
     check(dateCreated, Date);
     check(content, String);
     check(replies, [String]);
-    return this._collection.insert({ author, dateCreated, content, replies });
+    check(upvotingUsers, [String]);
+    return this._collection.insert({ author, dateCreated, content, replies, upvotingUsers });
   }
 
-  defineWithParent({ author, dateCreated, content, replies, parentComment }) {
+  defineWithParent({ author, dateCreated, content, replies, upvotingUsers, parentComment }) {
     check(author, String);
     check(dateCreated, Date);
     check(content, String);
     check(replies, [String]);
     check(parentComment, String);
-    return this._collection.insert({ author, dateCreated, content, replies, parentComment });
+    check(upvotingUsers, [String]);
+    return this._collection.insert({ author, dateCreated, content, replies, upvotingUsers, parentComment });
   }
 
-  defineTopLevel({ author, dateCreated, content, replies, parentForum }) {
+  defineTopLevel({ author, dateCreated, content, replies, upvotingUsers, parentForum }) {
     check(author, String);
     check(dateCreated, Date);
     check(content, String);
     check(replies, [String]);
     check(parentForum, String);
-    return this._collection.insert({ author, dateCreated, content, replies, parentForum });
+    check(upvotingUsers, [String]);
+    return this._collection.insert({ author, dateCreated, content, replies, upvotingUsers, parentForum });
   }
 }
 

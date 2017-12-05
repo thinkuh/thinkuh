@@ -39,7 +39,30 @@ Template.Comment.events({
     event.preventDefault();
     event.stopPropagation();
     instance.state.set('isRepliesOpen', !instance.state.get('isRepliesOpen'));
-    //console.log(`isRepliesOpen: ${instance.state.get('isRepliesOpen')}`);
+    // console.log(`isRepliesOpen: ${instance.state.get('isRepliesOpen')}`);
+    return false;
+  },
+
+  'click .js-comment-upvote-button'(event, instance) {
+    event.preventDefault();
+    event.stopPropagation();
+    const comment = instance.state.get('comment');
+    const username = Meteor.user().profile.name;
+    if (comment.upvotingUsers.includes(username)) {
+      const index = comment.upvotingUsers.indexOf(username);
+      if (index > -1) {
+        comment.upvotingUsers.splice(index, 1);
+      }
+      Comments.update(instance.state.get('comment')._id, {
+        $set: { upvotingUsers: comment.upvotingUsers },
+      });
+    } else {
+      comment.upvotingUsers.push(username);
+      Comments.update(instance.state.get('comment')._id, {
+        $set: { upvotingUsers: comment.upvotingUsers },
+      });
+    }
+    instance.state.set('comment', Comments.findDoc(comment._id));
     return false;
   },
 
@@ -47,7 +70,7 @@ Template.Comment.events({
     event.preventDefault();
     event.stopPropagation();
     instance.state.set('isReplying', !instance.state.get('isReplying'));
-    //console.log(`isReplying: ${instance.state.get('isReplying')}`);
+    // console.log(`isReplying: ${instance.state.get('isReplying')}`);
     return false;
   },
 
@@ -55,7 +78,7 @@ Template.Comment.events({
     event.preventDefault();
     event.stopPropagation();
     instance.state.set('isEditing', !instance.state.get('isEditing'));
-    //console.log(`isEditing: ${instance.state.get('isEditing')}`);
+    // console.log(`isEditing: ${instance.state.get('isEditing')}`);
     return false;
   },
 
@@ -85,14 +108,16 @@ Template.Comment.events({
     const dateCreated = new Date();
     const replies = [];
     const parentComment = instance.state.get('comment')._id;
+    const upvotingUsers = [author];
+
 
     const newCommentData = {
-      author, dateCreated, content, replies, parentComment,
+      author, dateCreated, content, replies, upvotingUsers, parentComment,
     };
 
-    //console.log(event);
-    //console.log(instance);
-    //console.log(newCommentData);
+    // console.log(event);
+    // console.log(instance);
+    // console.log(newCommentData);
 
     // Clear out any old validation errors.
     instance.context.reset();
@@ -102,17 +127,17 @@ Template.Comment.events({
     instance.context.validate(cleanData);
 
     if (instance.context.isValid()) {
-      //console.log('IS VALID');
-      const id = Comments.define(cleanData);
-      let updatedComment = instance.state.get('comment');
-      //console.log(`updatedComment: ${JSON.stringify(updatedComment)}`);
-      updatedComment.replies.push(id); //console.log(`updatedComment.replies: ${updatedComment.replies}`);
+      // console.log('IS VALID');
+      const id = Comments.defineWithParent(cleanData);
+      const updatedComment = instance.state.get('comment');
+      // console.log(`updatedComment: ${JSON.stringify(updatedComment)}`);
+      updatedComment.replies.push(id); // console.log(`updatedComment.replies: ${updatedComment.replies}`);
       Comments.update(instance.state.get('comment')._id, {
         $set: { replies: updatedComment.replies },
       });
       instance.state.set('comment', updatedComment);
-      //console.log(`updatedComment: ${JSON.stringify(updatedComment)}`);
-      //console.log(id);
+      // console.log(`updatedComment: ${JSON.stringify(updatedComment)}`);
+      // console.log(id);
       instance.state.set('isRepliesOpen', true);
       instance.state.set('isReplying', false);
       event.target.reset();
@@ -137,16 +162,17 @@ Template.Comment.events({
     const dateUpdated = new Date();
 
     const parentComment = subjectComment._id;
+    const upvotingUsers = subjectComment.upvotingUsers;
     const dateCreated = subjectComment.dateCreated;
     const replies = subjectComment.replies;
 
     const newCommentData = {
-      author, dateCreated, content, replies, parentComment, dateUpdated,
+      author, dateCreated, content, replies, upvotingUsers, parentComment, dateUpdated,
     };
 
-    //console.log(event);
-    //console.log(instance);
-    //console.log(newCommentData);
+    // console.log(event);
+    // console.log(instance);
+    // console.log(newCommentData);
 
     // Clear out any old validation errors.
     instance.context.reset();
@@ -158,14 +184,14 @@ Template.Comment.events({
     if (instance.context.isValid()) {
       console.log('IS VALID');
       const id = Comments.define(cleanData);
-      let updatedComment = instance.state.get('comment');
-      //console.log(`updatedComment: ${JSON.stringify(updatedComment)}`);
+      const updatedComment = instance.state.get('comment');
+      // console.log(`updatedComment: ${JSON.stringify(updatedComment)}`);
       Comments.update(instance.state.get('comment')._id, {
         $set: newCommentData,
       });
       instance.state.set('comment', updatedComment);
-      //console.log(`updatedComment: ${JSON.stringify(updatedComment)}`);
-      //console.log(id);
+      // console.log(`updatedComment: ${JSON.stringify(updatedComment)}`);
+      // console.log(id);
       instance.state.set('isEditing', false);
       event.target.reset();
       return true;
@@ -184,12 +210,12 @@ Template.Comment.helpers({
   },
 
   getComment: function getComment(id) {
-    //console.log(Template.currentData());
-    //console.log(id);
-    //console.log(`getcomment: ${id}`);
+    console.log(Template.currentData());
+    console.log(id);
+    console.log(`getcomment: ${id}`);
     const comment = Comments._collection.findOne(id);
     Template.instance().state.set('comment', comment);
-    //console.log(Template.instance().state.get('comment'));
+    console.log(Template.instance().state.get('comment'));
     return Template.instance().state.get('comment');
   },
 
@@ -198,13 +224,10 @@ Template.Comment.helpers({
   },
 
   getCommentProfile: function getCommentProfile(author) {
-    //console.log(`getCommentProfile: ${author}`);
-    const hello = Profiles._collection.find({}).fetch();
-    // const hello = Profiles._collection.findOne({ username: author });
-    //console.log(`hello: ${hello}`);
+    console.log(`getCommentProfile: ${author}`);
     const profile = Profiles.findDoc({ username: author });
     Template.instance().state.set('commentProfile', profile);
-    //console.log(`getCommentProfile item: ${Template.instance().state.get('commentProfile')}`);
+    console.log(`getCommentProfile item: ${Template.instance().state.get('commentProfile')}`);
     return Template.instance().state.get('commentProfile');
   },
 
@@ -214,7 +237,7 @@ Template.Comment.helpers({
   },
 
   getProfilePicture: function getProfilePicture(url) {
-    //console.log(`getProfilePicture: ${url}`);
+    // console.log(`getProfilePicture: ${url}`);
     if (!url) {
       return 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
     }
@@ -246,7 +269,26 @@ Template.Comment.helpers({
     return Template.instance().isAuthorOfComment(comment);
   },
 
+
   replyCount: function replyCount(replies) {
     return replies.length;
+  },
+
+  currentUserUpvoted: function currentUserUpvoted(username, comment) {
+    if (!username) { return null; }
+    if (!comment) { return null; }
+    return comment.upvotingUsers.includes(username);
+  },
+
+  currentUser: function currentAccountName() {
+    if (Meteor.user()) {
+      return Meteor.user().profile.name;
+    }
+    return null;
+  },
+
+  upvoteCount: function upvoteCount(upvotingUsers) {
+    if (!upvotingUsers) { return null; }
+    return upvotingUsers.length;
   },
 });

@@ -17,13 +17,22 @@
         {{/if}}
         {{#if commentData}}
           <div class="metadata">
-            <span class="date">
+            <div class="rating">
+              {{#let upvoteCount=(upvoteCount commentData.upvotingUsers)}}
+                <a class="ui {{#if (currentUserUpvoted (currentUser) commentData)}}green{{else}}grey{{/if}}
+                inverted tiny js-comment-upvote-button label">
+                  <i class="{{#if (currentUserUpvoted currentUser commentData)}}yellow{{/if}}
+                  star icon"></i>{{upvoteCount commentData.upvotingUsers}}
+                </a>
+              {{/let}}
+            </div>
+            <div class="date">
               {{#if commentData.dateUpdated}}
                 Updated: {{commentData.dateUpdated}}
               {{else}}
                 Created: {{commentData.dateCreated}}
               {{/if}}
-            </span>
+            </div>
           </div>
         {{/if}}
         <div class="text">
