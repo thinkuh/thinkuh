@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .landing-section-1 {
   padding: 10px 10px 30px 10px;
   background-color: #2A7F40;
@@ -23,6 +24,14 @@
 }
 
 
+=======
+.landing {
+  padding: 30px 10px 30px 10px;
+  background-color: #040;
+  color: #FFF;
+}
+
+>>>>>>> fb8b13fa74bb2a09f26797a1cd9a0e90f793a48a
 .landing-section-1-welcome {
   font-family: 'Roboto', sans-serif;
   font-weight: 900;
