@@ -45,39 +45,40 @@ Meteor.startup(() => {
     _.each(collectionList, collection => {
       restoreCollection(collection, restoreJSON);
     });
-    const commentId = Comments.defineTopLevel({
-      author: 'altenber',
-      dateCreated: new Date(),
-      content: 'Hello! Welcome to the Comment test!',
-      replies: [],
-      upvotingUsers: ['altenber'],
-      parentForum: 'placeholder',
-    });
-    console.log(`commentId: ${commentId}`);
-    const forumId = Forums._collection.update(
-      { _id: 0 },
-      {
-        $set: {
-          _id: 0,
-          comments: [commentId],
-        },
-      },
-      { upsert: true },
-    );
-    Comments._collection.update(
-      { _id: commentId },
-      {
-        $set: {
-          parentForum: forumId,
-        },
-      },
-    );
-    // Put the pre-created dummy forum's ID into a Meteor.method.
-    Meteor.methods({
-      getDummyForumId: function getDummyForum() {
-        console.log(`getDummyForumId: ${forumId}`);
-        return forumId;
-      },
-    });
+    //const commentId = Comments.defineTopLevel({
+    //  author: 'altenber',
+    //  dateCreated: new Date(),
+    //  content: 'Hello! Welcome to the Comment test!',
+    //  replies: [],
+    //  upvotingUsers: ['altenber'],
+    //  parentForum: 'placeholder',
+    //});
+    //console.log(`commentId: ${commentId}`);
+    //const forumId = Forums._collection.update(
+    //  { _id: 0 },
+    //  {
+    //    $set: {
+    //      _id: 0,
+    //      comments: [commentId],
+    //    },
+    //  },
+    //  { upsert: true },
+    //);
+    //Comments._collection.update(
+    //  { _id: commentId },
+    //  {
+    //    $set: {
+    //      parentForum: forumId,
+    //    },
+    //  },
+    //);
   }
+  // Put the pre-created dummy forum's ID into a Meteor.method.
+  // But this won't work for now if forumId is not created on this startup. Therefore, this needs to be fixed.
+  //Meteor.methods({
+  //  getDummyForumId: function getDummyForum() {
+  //    console.log(`getDummyForumId: ${forumId}`);
+  //    return forumId;
+  //  },
+  //});
 });
