@@ -38,19 +38,21 @@ Meteor.startup(() => {
   }, 0);
   if (totalDocuments === 0) {
     const fileName = Meteor.settings.public.initialDatabaseFileName;
+
     console.log(`Restoring database from file ${fileName}.`);
     const restoreJSON = JSON.parse(Assets.getText(fileName));
     _.each(collectionList, collection => {
       restoreCollection(collection, restoreJSON);
     });
     const commentId = Comments.define({
-      author: 'atasato',
+      author: 'altenber',
       dateCreated: new Date(),
-      content: 'Hello this is an **awesome** Markdown comment!',
+      content: 'Hello! Welcome to the Comment test!',
       replies: [],
+      parentForum: 'placeholder',
     });
     console.log(`commentId: ${commentId}`);
-    Forums._collection.update(
+    const forumId = Forums._collection.update(
       { _id: 0 },
       {
         $set: {
@@ -60,5 +62,19 @@ Meteor.startup(() => {
       },
       { upsert: true },
     );
+    Comments._collection.update(
+      { _id: commentId },
+      {
+        $set: {
+          parentForum: forumId,
+        },
+      },
+    );
+    // Put the pre-created dummy forum's ID into a Meteor.method.
+    Meteor.methods({
+      getDummyForumId: function getDummyForum() {
+        return forumId;
+      },
+    });
   }
 });

@@ -29,9 +29,10 @@ Template.Forum.events({
     const content = event.target['text-editor-textarea'].value;
     const dateCreated = new Date();
     const replies = [];
+    const parentForum = instance.state.get('forum')._id;
 
     const newCommentData = {
-      author, dateCreated, content, replies,
+      author, dateCreated, content, replies, parentForum
     };
 
     // console.log(event);
@@ -47,7 +48,7 @@ Template.Forum.events({
 
     if (instance.context.isValid()) {
 
-      const id = Comments.define(cleanData);
+      const id = Comments.defineTopLevel(cleanData);
       const updatedForum = instance.state.get('forum');
       console.log(`updatedForum: ${JSON.stringify(updatedForum)}`);
       updatedForum.comments.push(id);
@@ -56,6 +57,7 @@ Template.Forum.events({
         $set: { comments: updatedForum.comments },
       });
       instance.state.set('forum', updatedForum);
+      event.target.reset();
       return true;
     }
     console.log('NOT VALID');

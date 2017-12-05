@@ -73,9 +73,10 @@ Template.Comment.events({
     const content = event.target['text-editor-textarea'].value;
     const dateCreated = new Date();
     const replies = [];
+    const parentComment = instance.state.get('comment')._id;
 
     const newCommentData = {
-      author, dateCreated, content, replies,
+      author, dateCreated, content, replies, parentComment
     };
 
     //console.log(event);
@@ -94,8 +95,7 @@ Template.Comment.events({
       const id = Comments.define(cleanData);
       let updatedComment = instance.state.get('comment');
       //console.log(`updatedComment: ${JSON.stringify(updatedComment)}`);
-      updatedComment.replies.push(id);
-      //console.log(`updatedComment.replies: ${updatedComment.replies}`);
+      updatedComment.replies.push(id); //console.log(`updatedComment.replies: ${updatedComment.replies}`);
       Comments.update(instance.state.get('comment')._id, {
         $set: { replies: updatedComment.replies },
       });
@@ -104,6 +104,7 @@ Template.Comment.events({
       //console.log(id);
       instance.state.set('isRepliesOpen', true);
       instance.state.set('isReplying', false);
+      event.target.reset();
       return true;
     }
     console.log('NOT VALID');
@@ -123,10 +124,8 @@ Template.Comment.helpers({
     //console.log(Template.currentData());
     //console.log(id);
     //console.log(`getcomment: ${id}`);
-    if (Template.instance().state.get('comment') === null) {
-      const comment = Comments._collection.findOne(id);
-      Template.instance().state.set('comment', comment);
-    }
+    const comment = Comments._collection.findOne(id);
+    Template.instance().state.set('comment', comment);
     //console.log(Template.instance().state.get('comment'));
     return Template.instance().state.get('comment');
   },
@@ -137,14 +136,12 @@ Template.Comment.helpers({
 
   getCommentProfile: function getCommentProfile(author) {
     //console.log(`getCommentProfile: ${author}`);
-    if (Template.instance().state.get('commentProfile') === null) {
-      const hello = Profiles._collection.find({}).fetch();
-      // const hello = Profiles._collection.findOne({ username: author });
-      //console.log(`hello: ${hello}`);
-      const profile = Profiles.findDoc({ username: author });
-      Template.instance().state.set('commentProfile', profile);
-      //console.log(`getCommentProfile item: ${Template.instance().state.get('commentProfile')}`);
-    }
+    const hello = Profiles._collection.find({}).fetch();
+    // const hello = Profiles._collection.findOne({ username: author });
+    //console.log(`hello: ${hello}`);
+    const profile = Profiles.findDoc({ username: author });
+    Template.instance().state.set('commentProfile', profile);
+    //console.log(`getCommentProfile item: ${Template.instance().state.get('commentProfile')}`);
     return Template.instance().state.get('commentProfile');
   },
 

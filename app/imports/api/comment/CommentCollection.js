@@ -24,6 +24,8 @@ class CommentCollection extends BaseCollection {
       replies: { type: Array },
       'replies.$': { type: String },
       dateUpdated: { type: Date, optional: true },
+      parentForum: { type: String, optional: true },
+      parentComment: { type: String, optional: true },
     }, { tracker: Tracker }));
   }
 
@@ -44,6 +46,24 @@ class CommentCollection extends BaseCollection {
     check(content, String);
     check(replies, [String]);
     return this._collection.insert({ author, dateCreated, content, replies });
+  }
+
+  defineWithParent({ author, dateCreated, content, replies, parentComment }) {
+    check(author, String);
+    check(dateCreated, Date);
+    check(content, String);
+    check(replies, [String]);
+    check(parentComment, String);
+    return this._collection.insert({ author, dateCreated, content, replies, parentComment });
+  }
+
+  defineTopLevel({ author, dateCreated, content, replies, parentForum }) {
+    check(author, String);
+    check(dateCreated, Date);
+    check(content, String);
+    check(replies, [String]);
+    check(parentForum, String);
+    return this._collection.insert({ author, dateCreated, content, replies, parentForum });
   }
 }
 

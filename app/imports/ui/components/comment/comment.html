@@ -6,11 +6,15 @@
     <div class="comment">
       {{#let profileData=(getCommentProfile commentData.author)}}
       <a class="avatar">
-        <img src="{{getProfilePicture (profileData.picture)}}">
+        <img class="ui mini circular image" src="{{getProfilePicture (profileData.picture)}}">
       </a>
       {{/let}}
       <div class="content">
-        <a class="author">{{commentData.author}}</a>
+        {{#if commentData}}
+          <a class="author">{{commentData.author}}</a>
+        {{else}}
+          <div class="author">[Deleted]</div>
+        {{/if}}
         <div class="metadata">
           <span class="date">{{commentData.dateCreated}}</span>
         </div>
@@ -18,7 +22,9 @@
           {{{ renderMarkdown commentData.content}}}
         </div>
         <div class="actions">
+          {{#if commentData}}
           <a class="ui blue circular tiny js-comment-reply-button label">Reply</a>
+          {{/if}}
           {{#if (anyValidReplies commentData.replies) }}
             <a class="ui blue circular tiny js-comment-toggle-replies-button label">{{#if isRepliesOpen}}Hide Replies{{else}}Show Replies{{/if}}</a>
           {{/if}}

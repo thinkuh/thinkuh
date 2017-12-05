@@ -3,13 +3,15 @@
 <template name="Forum">
 
   <div class="ui container">
-    {{#let forumData=(getForum forumId)}}
-    <h3>Comments</h3>
-    {{#each comment in forumData.comments}}
-      {{> Comment commentId=comment }}
-    {{/each}}
-    <h3>Comment Below</h3>
-    {{> Text_Editor_Box }}
-    {{/let}}
+    <div class="ui comments">
+      {{#let forumData=(getForum forumId)}}
+        <h3>Comments</h3>
+        {{#each comment in forumData.comments}}
+          {{> Comment commentId=comment originForumId=forumId}}
+        {{/each}}
+        <h3>Comment Below</h3>
+        {{> Text_Editor_Box }}
+      {{/let}}
+    </div>
   </div>
 </template>

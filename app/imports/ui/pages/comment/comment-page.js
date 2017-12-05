@@ -25,6 +25,9 @@ Template.Comment_Page.helpers({
   isLoggedIn() {
     return this.isLoggedIn();
   },
+  getDummyForumId() {
+    return Meteor.call('getDummyForumId');
+  },
 });
 
 
