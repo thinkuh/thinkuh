@@ -1,13 +1,10 @@
 <template name="Landing_Page">
-
-  <div class="landing-section-1">
+  <div class="landing">
     <div class="ui grid">
-
       <div class="row">
         <div class="ui right aligned sixteen wide column">
           {{> Cas_Login }}
         </div>
-
       </div>
       <div class="row">
         <div class="ui center aligned sixteen wide column">
@@ -18,45 +15,26 @@
     </div>
   </div>
 
-  <div class="landing-section-2">
-    <div class="ui grid">
-      <div class="ui eight wide column">
+  <div class="landing">
+    <div class="ui centered grid">
+      <div class="ui four wide column">
         <img class="ui centered medium image" src="/images/profile.png">
-      </div>
-      <div class="ui eight wide middle aligned column">
         <h1 class="landing-section-header">Create your portfolio.</h1>
       </div>
-    </div>
-  </div>
 
-  <div class="landing-section-3">
-    <div class="ui grid">
-      <div class="ui eight wide middle aligned column">
+      <div class="ui four wide middle aligned column">
         <h1 class="landing-section-header">Publish articles for the community.</h1>
-      </div>
-      <div class="ui eight wide column">
         <img class="ui centered medium image" src="/images/directory.png">
       </div>
-    </div>
-  </div>
 
-  <div class="landing-section-2">
-    <div class="ui grid">
-      <div class="ui eight wide column">
+      <div class="ui four wide column">
         <img class="ui centered medium image" src="/images/filter.png">
-      </div>
-      <div class="ui eight wide middle aligned column">
         <h1 class="landing-section-header">Find information relevant to you.</h1>
       </div>
-    </div>
-  </div>
 
-  <div class="landing-section-5">
-    <div class="ui grid">
       <div class="ui center aligned sixteen wide column">
         {{> Cas_Login size="large"}}
       </div>
     </div>
   </div>
-
 </template>
