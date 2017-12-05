@@ -3,6 +3,8 @@ import { Clubs } from '/imports/api/club/ClubCollection';
 import { Departments } from '/imports/api/department/DepartmentCollection';
 import { Majors } from '/imports/api/major/MajorCollection';
 import { Profiles } from '/imports/api/profile/ProfileCollection';
+import { Forums } from '/imports/api/forum/ForumCollection';
+import { Comments } from '/imports/api/comment/CommentCollection';
 import { _ } from 'meteor/underscore';
 
 /* global Assets */
@@ -37,10 +39,43 @@ Meteor.startup(() => {
   }, 0);
   if (totalDocuments === 0) {
     const fileName = Meteor.settings.public.initialDatabaseFileName;
+
     console.log(`Restoring database from file ${fileName}.`);
     const restoreJSON = JSON.parse(Assets.getText(fileName));
     _.each(collectionList, collection => {
       restoreCollection(collection, restoreJSON);
+    });
+    const commentId = Comments.define({
+      author: 'altenber',
+      dateCreated: new Date(),
+      content: 'Hello! Welcome to the Comment test!',
+      replies: [],
+      parentForum: 'placeholder',
+    });
+    console.log(`commentId: ${commentId}`);
+    const forumId = Forums._collection.update(
+      { _id: 0 },
+      {
+        $set: {
+          _id: 0,
+          comments: [commentId],
+        },
+      },
+      { upsert: true },
+    );
+    Comments._collection.update(
+      { _id: commentId },
+      {
+        $set: {
+          parentForum: forumId,
+        },
+      },
+    );
+    // Put the pre-created dummy forum's ID into a Meteor.method.
+    Meteor.methods({
+      getDummyForumId: function getDummyForum() {
+        return forumId;
+      },
     });
   }
 });
