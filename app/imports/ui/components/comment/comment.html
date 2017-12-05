@@ -1,0 +1,81 @@
+<!-- Takes a Comment as an argument, as well as a Profile -->
+
+<template name="Comment">
+{{#if Template.subscriptionsReady}}
+  {{#let commentData=(getComment commentId)}}
+    <div class="comment">
+      {{#let profileData=(getCommentProfile commentData.author)}}
+      <a class="avatar">
+        <img class="ui mini circular image" src="{{getProfilePicture (profileData.picture)}}">
+      </a>
+      {{/let}}
+      <div class="content">
+        {{#if commentData}}
+          <a class="author">{{commentData.author}}</a>
+        {{else}}
+          <div class="author">[Deleted]</div>
+        {{/if}}
+        {{#if commentData}}
+          <div class="metadata">
+            <div class="rating">
+              {{#let upvoteCount=(upvoteCount commentData.upvotingUsers)}}
+                <a class="ui {{#if (currentUserUpvoted (currentUser) commentData)}}green{{else}}grey{{/if}}
+                inverted tiny js-comment-upvote-button label">
+                  <i class="{{#if (currentUserUpvoted currentUser commentData)}}yellow{{/if}}
+                  star icon"></i>{{upvoteCount commentData.upvotingUsers}}
+                </a>
+              {{/let}}
+            </div>
+            <div class="date">
+              {{#if commentData.dateUpdated}}
+                Updated: {{commentData.dateUpdated}}
+              {{else}}
+                Created: {{commentData.dateCreated}}
+              {{/if}}
+            </div>
+          </div>
+        {{/if}}
+        <div class="text">
+          {{{ renderMarkdown commentData.content}}}
+        </div>
+        <div class="actions">
+          {{#if (anyValidReplies commentData.replies) }}
+            <a class="ui blue circular tiny js-comment-toggle-replies-button label">
+              {{#if isRepliesOpen}}
+                <i class="ui toggle up icon"></i>{{replyCount commentData.replies}}
+              {{else}}
+                <i class="ui toggle down icon"></i>{{replyCount commentData.replies}}
+              {{/if}}
+            </a>
+          {{/if}}
+          {{#if commentData}}
+            <a class="ui blue circular tiny js-comment-reply-button label"><i class="reply icon"></i>Reply</a>
+          {{/if}}
+          {{#if isAuthorOfComment commentData}}
+            <a class="ui pink circular tiny js-comment-edit-button label"><i class="pencil icon"></i>Edit</a>
+          {{/if}}
+          {{#if isAuthorOfComment commentData}}
+            <a class="ui red circular tiny js-comment-delete-button label"><i class="trash outline icon"></i>Delete</a>
+          {{/if}}
+          {{#if isReplying}}
+            {{> Text_Editor_Box textEditorBoxClass="js-comment-reply-textbox" buttonColor="blue" }}
+          {{/if}}
+          {{#if isEditing}}
+            {{> Text_Editor_Box textEditorBoxClass="js-comment-edit-textbox" buttonColor="pink" textareaContent=(commentData.content) }}
+          {{/if}}
+        </div>
+      </div>
+      <div class="comments">
+        {{#if isRepliesOpen}}
+          {{#let updatedCommentData=(getComment commentId)}}
+            {{#each reply in updatedCommentData.replies}}
+              {{> Comment commentId=reply }}
+            {{/each}}
+          {{/let}}
+        {{/if}}
+      </div>
+    </div>
+  {{/let}}
+{{/if}}
+
+</template>

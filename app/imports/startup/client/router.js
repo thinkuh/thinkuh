@@ -33,6 +33,14 @@ FlowRouter.route('/directory', {
   triggersExit: [removeDirectoryBodyClass],
 });
 
+//export const commentPageRoutePage = 'Comment_Page';
+//FlowRouter.route('/comment', {
+//  name: commentPageRoutePage,
+//  action() {
+//    BlazeLayout.render('Comment_Page', { main: commentPageRoutePage });
+//  },
+//});
+
 
 /*                        USER ROUTES                      */
 
@@ -97,7 +105,7 @@ export const majorHomePageRouteName = 'Major_Page';
 majorRoutes.route('/home', {
   name: majorHomePageRouteName,
   action() {
-    BlazeLayout.render('Major_Layout', { main: majorHomePageRouteName });
+    BlazeLayout.render('Major_Layout', { });
   },
 });
 

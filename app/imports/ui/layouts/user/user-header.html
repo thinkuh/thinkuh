@@ -1,5 +1,5 @@
 <template name="User_Header">
-  <div class="ui top fixed borderless inverted menu">
+  <div class="ui top fixed borderless green inverted menu">
     <div class="ui container">
       <div class="item"><h1>ThinkUH</h1></div>
       <a class="{{isActiveRoute 'Profile_Page'}} item" href="{{pathFor 'Profile_Page' username=routeUserName}}">Profile</a>
@@ -10,7 +10,6 @@
           {{#each department in departments}}
           <div class="item">
             <i class="dropdown icon"></i>
-            <!--<span class="text">College of Natural Sciences</span>-->
             <span class="text">{{department.name}}</span>
             {{#each major in majors}}
               {{#each dmajor in department.majors}}
@@ -18,7 +17,6 @@
                   <div class="menu">
                     <a class="item" href="{{pathFor 'Major_Page' major=major.url}}">{{major.name}}</a>
                   </div>
-                  <!--{{> Header_Item major=major}}-->
                 {{/if}}
               {{/each}}
             {{/each}}
@@ -26,7 +24,8 @@
           {{/each}}
         </div>
       </div>
-    <a class="{{isActiveRoute 'Filter_Page'}} item" href="{{pathFor 'Filter_Page' username=routeUserName}}">Filter</a>
+      <a class="{{isActiveRoute 'Filter_Page'}} item" href="{{pathFor 'Filter_Page' username=routeUserName}}">Filter</a>
+      <!-- a class="{{isActiveRoute 'Comment_Page'}} item" href="{{pathFor 'Comment_Page'}}">Comment</a -->
     </div>
     <div class="right aligned item">{{> Cas_Login }}</div>
   </div>
