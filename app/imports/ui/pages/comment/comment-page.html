@@ -1,0 +1,8 @@
+<template name="Comment_Page">
+  {{#if Template.subscriptionsReady}}
+    {{> Forum forumId=(getDummyForumId) }}
+  {{else}}
+    <p>Loading...</p>
+  {{/if}}
+
+</template>

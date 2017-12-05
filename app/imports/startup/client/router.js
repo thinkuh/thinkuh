@@ -33,6 +33,14 @@ FlowRouter.route('/directory', {
   triggersExit: [removeDirectoryBodyClass],
 });
 
+export const commentPageRoutePage = 'Comment_Page';
+FlowRouter.route('/comment', {
+  name: commentPageRoutePage,
+  action() {
+    BlazeLayout.render('Comment_Page', { main: commentPageRoutePage });
+  },
+});
+
 
 /*                        USER ROUTES                      */
 
