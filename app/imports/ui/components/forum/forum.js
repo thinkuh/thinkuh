@@ -43,9 +43,10 @@ Template.Forum.events({
     const dateCreated = new Date();
     const replies = [];
     const parentForum = instance.state.get('forum')._id;
+    const upvotingUsers = [author];
 
     const newCommentData = {
-      author, dateCreated, content, replies, parentForum,
+      author, dateCreated, content, replies, upvotingUsers, parentForum,
     };
 
     // console.log(event);
