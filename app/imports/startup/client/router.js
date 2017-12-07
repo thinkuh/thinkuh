@@ -109,6 +109,31 @@ majorRoutes.route('/class', {
   },
 });
 
+/*                        COURSE ROUTES                      */
+
+function addCourseBodyClass() {
+  $('body').addClass('course-page-body');
+}
+
+function removeCourseBodyClass() {
+  $('body').removeClass('course-page-body');
+}
+
+const courseRoutes = FlowRouter.group({
+  prefix: '/:major/:course',
+  name: 'courseRoutes',
+  triggersEnter: [addCourseBodyClass],
+  triggersExit: [removeCourseBodyClass],
+});
+
+export const coursePageRouteName = 'Course_Page';
+courseRoutes.route('/', {
+  name: coursePageRouteName,
+  action() {
+    BlazeLayout.render('Major_Layout', { main: coursePageRouteName });
+  },
+});
+
 
 /*                        MISC ROUTES                       */
 FlowRouter.notFound = {

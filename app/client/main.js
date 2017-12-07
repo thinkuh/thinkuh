@@ -13,6 +13,7 @@ import '/imports/ui/layouts/shared';
 import '/imports/ui/layouts/user';
 import '/imports/ui/layouts/comment';
 import '/imports/ui/pages/class';
+import '/imports/ui/pages/course';
 import '/imports/ui/pages/directory';
 import '/imports/ui/pages/filter';
 import '/imports/ui/pages/landing';
