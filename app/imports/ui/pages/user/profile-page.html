@@ -13,8 +13,9 @@
         {{> Text_Form_Control label="Last" placeholder="Last" value=profile.lastName errorMessage=(fieldError
         "lastName")}}
       </div>
-      <div class="field"> {{> Text_Form_Control label="Picture" placeholder="http://foo.com/shot.jpg"
-        value=profile.picture errorMessage=(fieldError "picture")}}
+      <div class="fields">
+        {{> Text_Form_Control label="Email" placeholder="test@test.com" value=profile.email errorMessage=(fieldError "email")}}
+        {{> Text_Form_Control label="Picture" placeholder="http://foo.com/shot.jpg" value=profile.picture errorMessage=(fieldError "picture")}}
       </div>
 
       <div class="field">

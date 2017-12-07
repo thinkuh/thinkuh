@@ -1,6 +1,5 @@
 <template name="User_Popup">
-  <a href="#" class="uname profile-popup" data-title="{{ profile.firstName }} {{ profile.lastName }}" data-content="{{#each major in profile.majors}}{{major}} {{/each}}
-  {{#each club in profile.clubs}}{{club}} {{/each}}">{{ profile.username }}</a>
+  <a href="#" class="uname profile-popup" data-html="<h4 class='header' style='margin: 0px'>{{ profile.firstName }} {{ profile.lastName }}</h4><div class='content'>{{#each major in profile.majors}}{{major}} {{/each}}<div>{{#each club in profile.clubs}} {{club}} {{/each}}</div><a href='mailto:{{profile.email}}'>{{profile.email}}</a>">{{ profile.username }}</a>
   <script>
     $('.uname.profile-popup')
         .popup({

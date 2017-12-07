@@ -56,6 +56,7 @@ Template.Profile_Page.events({
     const username = FlowRouter.getParam('username'); // schema requires username.
     const firstName = event.target.First.value;
     const lastName = event.target.Last.value;
+    const email = event.target.Email.value;
     const picture = event.target.Picture.value;
     const standing = event.target['Class Standing'].value;
     const majors = _.map(_.filter(event.target.Majors.selectedOptions, (option) => option.selected), (option) => option.value);
@@ -63,7 +64,7 @@ Template.Profile_Page.events({
     const about = event.target['About Me'].value;
 
     const updatedProfileData = {
-      username, firstName, lastName, picture, standing, majors, clubs, about,
+      username, firstName, lastName, email, picture, standing, majors, clubs, about,
     };
 
     // Clear out any old validation errors.
