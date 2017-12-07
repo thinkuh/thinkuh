@@ -23,6 +23,7 @@ import '/imports/ui/stylesheets/style.css';
 import '/imports/api/base';
 import '/imports/api/club';
 import '/imports/api/department';
+import '/imports/api/event';
 import '/imports/api/major';
 import '/imports/api/profile';
 import '/imports/api/comment';

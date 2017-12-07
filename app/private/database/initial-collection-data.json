@@ -50,6 +50,17 @@
           "about": "I am an Associate Professor of Information and Computer Sciences at the University of Hawaii."
         }
       ]
+    },
+    {
+      "name": "EventCollection",
+      "contents": [
+        {
+          "name": "The Altenberg Event",
+          "date": "Now",
+          "description": "This is a test event.",
+          "picture": "/images/altenberg.jpg"
+        }
+      ]
     }
   ]
 }
