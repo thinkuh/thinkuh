@@ -24,6 +24,7 @@ class ProfileCollection extends BaseCollection {
       // Remainder are optional
       firstName: { type: String, optional: true },
       lastName: { type: String, optional: true },
+      email: { type: String, optional: true },
       picture: { type: SimpleSchema.RegEx.Url, optional: true },
       standing: { type: String, optional: true },
       majors: { type: Array, optional: true },
@@ -56,13 +57,13 @@ class ProfileCollection extends BaseCollection {
    * @returns The newly created docID.
    */
   define({
-           username, firstName = '', lastName = '', picture = '', standing='', majors = [], clubs = [], about = '',
+           username, firstName = '', lastName = '', email = '', picture = '', standing='', majors = [], clubs = [], about = '',
          }) {
     // make sure required fields are OK.
     const checkPattern = {
-      username: String, firstName: String, lastName: String, picture: String, standing: String, about: String,
+      username: String, firstName: String, lastName: String, email: String, picture: String, standing: String, about: String,
     };
-    check({ username, firstName, lastName, picture, standing, about }, checkPattern);
+    check({ username, firstName, lastName, email, picture, standing, about }, checkPattern);
 
     if (this.find({ username }).count() > 0) {
       throw new Meteor.Error(`${username} is previously defined in another Profile`);
@@ -85,7 +86,7 @@ class ProfileCollection extends BaseCollection {
     }
 
     return this._collection.insert({
-      username, firstName, lastName, picture, standing, majors, clubs, about,
+      username, firstName, lastName, email, picture, standing, majors, clubs, about,
     });
   }
 
@@ -99,12 +100,13 @@ class ProfileCollection extends BaseCollection {
     const username = doc.username;
     const firstName = doc.firstName;
     const lastName = doc.lastName;
+    const email = doc.email;
     const picture = doc.picture;
     const standing = doc.standing;
     const majors = doc.majors;
     const clubs = doc.clubs;
     const about = doc.about;
-    return { username, firstName, lastName, picture, standing, majors, clubs, about, };
+    return { username, firstName, lastName, email, picture, standing, majors, clubs, about, };
   }
 }
 

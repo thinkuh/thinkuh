@@ -38,6 +38,7 @@
           "username": "altenber",
           "firstName": "Lee",
           "lastName": "Altenberg",
+          "email": "test@test.com",
           "picture": "/images/altenberg.jpg",
           "standing": "Associate Professor, Information and Computer Sciences",
           "majors": [
