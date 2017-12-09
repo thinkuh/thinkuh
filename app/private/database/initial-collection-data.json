@@ -61,6 +61,17 @@
           "picture": "/images/altenberg.jpg"
         }
       ]
+    },
+    {
+      "name": "CourseCollection",
+      "contents": [
+        {
+          "name": "Software Engineering I",
+          "major": "ICS",
+          "url": "314",
+          "description": ""
+        }
+      ]
     }
   ]
 }

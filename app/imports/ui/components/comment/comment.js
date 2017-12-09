@@ -89,9 +89,9 @@ Template.Comment.events({
       Comments._collection.remove(instance.state.get('comment')._id);
       instance.state.set('comment', null);
       instance.state.set('commentProfile', null);
-      console.log('Deleted comment?');
+      //console.log('Deleted comment?');
     } else {
-      console.error('Cannot delete comment without access!');
+      //console.error('Cannot delete comment without access!');
     }
     return false;
   },

@@ -1,7 +1,7 @@
 <template name="Course_Page">
   {{#if Template.subscriptionsReady}}
   <div style="margin-top: 10px" class="ui container">
-    <h1>{{course.name}}</h1>
+    <h1>{{major.url}} {{course.url}}: {{course.name}}</h1>
     <p>
       {{course.description}}
     </p>

@@ -7,25 +7,29 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 
 Template.Course_Page.onCreated(function onCreated() {
   this.subscribe(Courses.getPublicationName());
+  this.subscribe(Majors.getPublicationName());
   this.state = new ReactiveDict();
 
   this.state.set('major', Majors._collection.findOne({ url: FlowRouter.getParam('major') }));
-  this.state.set('course', Courses._collection.findOne({ url: FlowRouter.getParam('course') }));
+  this.state.set('course', Courses._collection.findOne({ url: FlowRouter.getParam('course'), major: FlowRouter.getParam('major') }));
 });
 
-Template.Major_Page.helpers({
+Template.Course_Page.helpers({
   routeUserName() {
     return Meteor.user().profile.name;
   },
-  majors() {
-    return Majors.find({}, { sort: { name: 1 } });
+  course() {
+    return Courses._collection.findOne({ url: FlowRouter.getParam('course'), major: FlowRouter.getParam('major') });
+  },
+  major() {
+    return Majors._collection.findOne({ url: FlowRouter.getParam('major') });
   },
   getForumId() {
-    const major = Majors._collection.findOne({
-      url: FlowRouter.getParam('major'),
+    const course = Courses._collection.findOne({
+      url: FlowRouter.getParam('course'),
     });
-    console.log('getForumId: major: ' + JSON.stringify(major));
-    if (!major) { return null; }
-    return major.forumId;
+    //console.log('getForumId: course: ' + JSON.stringify(course));
+    if (!course) { return null; }
+    return course.forumId;
   },
 });
