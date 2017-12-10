@@ -15,8 +15,11 @@ Template.Course_Page.onCreated(function onCreated() {
 });
 
 Template.Course_Page.helpers({
-  routeUserName() {
-    return Meteor.user().profile.name;
+  routeMajorName() {
+    return FlowRouter.getParam('major');
+  },
+  routeCourseName() {
+    return FlowRouter.getParam('course');
   },
   course() {
     return Courses._collection.findOne({ url: FlowRouter.getParam('course'), major: FlowRouter.getParam('major') });

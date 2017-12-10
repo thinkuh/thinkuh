@@ -109,6 +109,14 @@ majorRoutes.route('/class', {
   },
 });
 
+export const majorForumPageRouteName = 'Forum_Page';
+majorRoutes.route('/forum', {
+  name: majorForumPageRouteName,
+  action() {
+    BlazeLayout.render('Major_Layout', { main: majorForumPageRouteName });
+  },
+});
+
 /*                        COURSE ROUTES                      */
 
 function addCourseBodyClass() {
@@ -127,15 +135,23 @@ const courseRoutes = FlowRouter.group({
 });
 
 export const coursePageRouteName = 'Course_Page';
-courseRoutes.route('/', {
+courseRoutes.route('/home', {
   name: coursePageRouteName,
   action() {
-    BlazeLayout.render('Major_Layout', { main: coursePageRouteName });
+    BlazeLayout.render('Course_Layout', { });
   },
 });
 
+export const courseForumPageRouteName = 'Forum_Page';
+courseRoutes.route('/forum', {
+  name: courseForumPageRouteName,
+  action() {
+    BlazeLayout.render('Course_Layout', { main: courseForumPageRouteName });
+  },
+});
 
 /*                        MISC ROUTES                       */
+
 FlowRouter.notFound = {
   action() {
     BlazeLayout.render('Page_Not_Found');

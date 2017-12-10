@@ -5,9 +5,16 @@
     <p>
       {{course.description}}
     </p>
+    <div class="ui secondary pointing four item menu">
+      <a class="item" href="{{pathFor 'Forum_Page' major=routeMajorName course=routeCourseName }}">
+        Forum
+      </a>
+    </div>
   </div>
+  <!--
   <div class="ui container raised segment">
     {{> Forum forumId=getForumId }}
   </div>
+  -->
   {{/if}}
 </template>
