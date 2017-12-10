@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
 import { Tracker } from 'meteor/tracker';
 import { Forums } from '/imports/api/forum/ForumCollection';
+import { Courses } from '/imports/api/course/CourseCollection';
 
 /** @module Interest */
 
@@ -21,6 +22,8 @@ class MajorCollection extends BaseCollection {
     super('Major', new SimpleSchema({
       name: { type: String },
       url: { type: String },
+      courses: { type: Array, optional: true },
+      'courses.$': { type: String },
       description: { type: String, optional: true },
       forumId: { type: String },
     }, { tracker: Tracker }));
@@ -37,7 +40,7 @@ class MajorCollection extends BaseCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined name.
    * @returns The newly created docID.
    */
-  define({ name, url, description }) {
+  define({ name, url, courses, description }) {
     check(name, String);
     check(url, String);
     check(description, String);
@@ -45,7 +48,11 @@ class MajorCollection extends BaseCollection {
     if (this.find({ name }).count() > 0) {
       throw new Meteor.Error(`${name} is previously defined in another Major`);
     }
-    return this._collection.insert({ name, url, description, forumId });
+    Courses.assertNames(courses);
+    if (courses.length !== _.uniq(courses).length) {
+      throw new Meteor.Error(`${courses} contains duplicates`);
+    }
+    return this._collection.insert({ name, url, courses, description, forumId });
   }
 
   /**
@@ -114,8 +121,10 @@ class MajorCollection extends BaseCollection {
   dumpOne(docID) {
     const doc = this.findDoc(docID);
     const name = doc.name;
+    const url = doc.url;
+    const courses = doc.courses;
     const description = doc.description;
-    return { name, description };
+    return { name, url, courses, description };
   }
 }
 

@@ -27,6 +27,9 @@
         {
           "name": "Information and Computer Sciences",
           "url": "ICS",
+          "courses": [
+            "Software Engineering I"
+          ],
           "description": "The Information and Computer Sciences Department at the University of Hawai‘i at Mānoa provides a supportive educational and research environment for students, faculty and academic visitors interested in computer science and information studies. We strive to produce innovative scholars ready to join the workforce in diverse fields related to the computing sciences, and we endeavor to conduct cutting-edge scientific and applied research for the benefit of Hawaii, the Pacific region, and the global community."
         }
       ]
