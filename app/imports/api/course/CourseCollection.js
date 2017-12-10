@@ -4,6 +4,7 @@ import { check } from 'meteor/check';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
 import { Tracker } from 'meteor/tracker';
+import { Forums } from '/imports/api/forum/ForumCollection';
 
 /** @module Interest */
 
@@ -11,17 +12,18 @@ import { Tracker } from 'meteor/tracker';
  * Represents a specific interest, such as "Software Engineering".
  * @extends module:Base~BaseCollection
  */
-class EventCollection extends BaseCollection {
+class CourseCollection extends BaseCollection {
 
   /**
    * Creates the Interest collection.
    */
   constructor() {
-    super('Event', new SimpleSchema({
+    super('Course', new SimpleSchema({
       name: { type: String },
-      date: { type: String },
-      description: { type: String },
-      picture: { type: String },
+      major: { type: String },
+      url: { type: String, regEx: /^\d{3}$/ },
+      description: { type: String, optional: true },
+      forumId: { type: String },
     }, { tracker: Tracker }));
   }
 
@@ -36,12 +38,16 @@ class EventCollection extends BaseCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined name.
    * @returns The newly created docID.
    */
-  define({ name, date, description, picture }) {
+  define({ name, major, url, description }) {
     check(name, String);
-    check(date, String);
+    check(major, String);
+    check(url, String);
     check(description, String);
-    check(picture, String);
-    return this._collection.insert({ name, date, description, picture });
+    const forumId = Forums.define({ comments: [] });
+    if (this.find({ name }).count() > 0) {
+      throw new Meteor.Error(`${name} is previously defined in another Major`);
+    }
+    return this._collection.insert({ name, major, url, description, forumId });
   }
 
   /**
@@ -50,9 +56,9 @@ class EventCollection extends BaseCollection {
    * @returns { String } An interest name.
    * @throws { Meteor.Error} If the interest docID cannot be found.
    */
-  findName(eventID) {
-    this.assertDefined(eventID);
-    return this.findDoc(eventID).name;
+  findName(courseID) {
+    this.assertDefined(courseID);
+    return this.findDoc(courseID).name;
   }
 
   /**
@@ -61,8 +67,8 @@ class EventCollection extends BaseCollection {
    * @returns { Array }
    * @throws { Meteor.Error} If any of the instanceIDs cannot be found.
    */
-  findNames(eventIDs) {
-    return eventIDs.map(eventID => this.findName(eventID));
+  findNames(courseIDs) {
+    return courseIDs.map(courseID => this.findName(courseID));
   }
 
   /**
@@ -110,14 +116,14 @@ class EventCollection extends BaseCollection {
   dumpOne(docID) {
     const doc = this.findDoc(docID);
     const name = doc.name;
-    const date = doc.date;
+    const major = doc.major;
+    const url = doc.url;
     const description = doc.description;
-    const picture = doc.picture;
-    return { name, date, description, picture };
+    return { name, major, url, description };
   }
 }
 
 /**
  * Provides the singleton instance of this class to all other entities.
  */
-export const Events = new EventCollection();
+export const Courses = new CourseCollection();

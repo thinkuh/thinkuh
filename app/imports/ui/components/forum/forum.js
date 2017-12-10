@@ -17,15 +17,15 @@ Template.Forum.onCreated(function onCreated() {
   };
   this.getForum = function getForum(id) {
     if (!id) { return null; }
-    console.log(Template.currentData());
-    console.log(id);
-    console.log(`getforum: ${id}`);
+    //console.log(Template.currentData());
+    //console.log(id);
+    //console.log(`getforum: ${id}`);
     if (Template.instance().state.get('forum') === null) {
       const forum = Forums.findDoc(id);
       Template.instance().state.set('forum', forum);
     }
     // console.log(Template.instance().state.get('forum'));
-    console.log(`getforum forumItem: ${JSON.stringify(Template.instance().state.get('forum'))}`);
+    //console.log(`getforum forumItem: ${JSON.stringify(Template.instance().state.get('forum'))}`);
     return Template.instance().state.get('forum');
   };
 });
@@ -63,9 +63,9 @@ Template.Forum.events({
     if (instance.context.isValid()) {
       const id = Comments.defineTopLevel(cleanData);
       const updatedForum = instance.state.get('forum');
-      console.log(`updatedForum: ${JSON.stringify(updatedForum)}`);
+      //console.log(`updatedForum: ${JSON.stringify(updatedForum)}`);
       updatedForum.comments.push(id);
-      console.log(`updatedForum: ${JSON.stringify(updatedForum)}`);
+      //console.log(`updatedForum: ${JSON.stringify(updatedForum)}`);
       Forums.update(updatedForum._id, {
         $set: { comments: updatedForum.comments },
       });

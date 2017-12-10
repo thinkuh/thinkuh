@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Clubs } from '/imports/api/club/ClubCollection';
+import { Courses } from '/imports/api/course/CourseCollection';
 import { Departments } from '/imports/api/department/DepartmentCollection';
 import { Events } from '/imports/api/event/EventCollection';
 import { Majors } from '/imports/api/major/MajorCollection';
@@ -34,7 +35,7 @@ function restoreCollection(collection, restoreJSON) {
 
 Meteor.startup(() => {
   /** Only initialize database if it's empty. */
-  const collectionList = [Clubs, Majors, Departments, Profiles, Events];
+  const collectionList = [Clubs, Courses, Majors, Departments, Profiles, Events];
   const totalDocuments = _.reduce(collectionList, function reducer(memo, collection) {
     return memo + collection.count();
   }, 0);

@@ -89,9 +89,9 @@ Template.Comment.events({
       Comments._collection.remove(instance.state.get('comment')._id);
       instance.state.set('comment', null);
       instance.state.set('commentProfile', null);
-      console.log('Deleted comment?');
+      //console.log('Deleted comment?');
     } else {
-      console.error('Cannot delete comment without access!');
+      //console.error('Cannot delete comment without access!');
     }
     return false;
   },
@@ -210,12 +210,12 @@ Template.Comment.helpers({
   },
 
   getComment: function getComment(id) {
-    console.log(Template.currentData());
-    console.log(id);
-    console.log(`getcomment: ${id}`);
+    //console.log(Template.currentData());
+    //console.log(id);
+    //console.log(`getcomment: ${id}`);
     const comment = Comments._collection.findOne(id);
     Template.instance().state.set('comment', comment);
-    console.log(Template.instance().state.get('comment'));
+    //console.log(Template.instance().state.get('comment'));
     return Template.instance().state.get('comment');
   },
 
@@ -224,10 +224,10 @@ Template.Comment.helpers({
   },
 
   getCommentProfile: function getCommentProfile(author) {
-    console.log(`getCommentProfile: ${author}`);
+    //console.log(`getCommentProfile: ${author}`);
     const profile = Profiles.findDoc({ username: author });
     Template.instance().state.set('commentProfile', profile);
-    console.log(`getCommentProfile item: ${Template.instance().state.get('commentProfile')}`);
+    //console.log(`getCommentProfile item: ${Template.instance().state.get('commentProfile')}`);
     return Template.instance().state.get('commentProfile');
   },
 

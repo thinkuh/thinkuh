@@ -1,0 +1,7 @@
+<template name="Forum_Page">
+  {{#if Template.subscriptionsReady}}
+  <div style="margin-top: 10px"  class="ui container raised segment">
+    {{> Forum forumId=getForumId }}
+  </div>
+  {{/if}}
+</template>
