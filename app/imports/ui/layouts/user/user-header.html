@@ -2,7 +2,7 @@
   <div class="ui top fixed borderless green inverted menu">
     <div class="ui container">
       <div class="item"><h1>ThinkUH</h1></div>
-      <a class="{{isActiveRoute 'Profile_Page'}} item" href="{{pathFor 'Profile_Page' username=routeUserName}}">Profile</a>
+      <a class="{{isActiveRoute 'Profile_Page'}} {{#unless isUser}}disabled{{/unless}} item" href="{{#if isUser}}{{pathFor 'Profile_Page' username=routeUserName}}{{else}}#{{/if}}">Profile</a>
       <div class="ui dropdown item">
         <div class="text">Department</div>
         <i class="dropdown icon"></i>
@@ -11,20 +11,18 @@
           <div class="item">
             <i class="dropdown icon"></i>
             <span class="text">{{department.name}}</span>
-            {{#each major in majors}}
-              {{#each dmajor in department.majors}}
-                {{#if major.name = dmajor}}
-                  <div class="menu">
-                    <a class="item" href="{{pathFor 'Major_Page' major=major.url}}">{{major.name}}</a>
-                  </div>
-                {{/if}}
-              {{/each}}
+            <div class="menu">
+            {{#each dmajor in department.majors}}
+              {{#let major = (findMajor dmajor)}}
+                <a class="item" href="{{pathFor 'Major_Page' major=major.url}}">{{major.name}}</a>
+              {{/let}}
             {{/each}}
+            </div>
           </div>
           {{/each}}
         </div>
       </div>
-      <a class="{{isActiveRoute 'Filter_Page'}} item" href="{{pathFor 'Filter_Page' username=routeUserName}}">Filter</a>
+      <a class="{{isActiveRoute 'Filter_Page'}} {{#unless isUser}}disabled{{/unless}} item" href="{{#if isUser}}{{pathFor 'Filter_Page' username=routeUserName}}{{else}}#{{/if}}">Filter</a>
       <!-- a class="{{isActiveRoute 'Comment_Page'}} item" href="{{pathFor 'Comment_Page'}}">Comment</a -->
     </div>
     <div class="right aligned item">{{> Cas_Login }}</div>
