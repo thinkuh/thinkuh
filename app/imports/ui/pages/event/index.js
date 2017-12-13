@@ -1,1 +1,2 @@
-import '../event/event-page.js';
+import './event-page.html';
+import './event-page.js';
