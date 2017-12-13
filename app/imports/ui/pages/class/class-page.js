@@ -9,8 +9,9 @@ import { Majors } from '/imports/api/major/MajorCollection';
 
 /*var json = require('/private/database/graphFile.json');*/
 
+/*
 Template.Class_Page.onCreated(function() {
-  /*this.skills = new ReactiveVar(json);*/
+  /!*this.skills = new ReactiveVar(json);*!/
   const result = Meteor.call('myJSON', 1, 2);
   console.log(restoreJSON);
 
@@ -20,4 +21,4 @@ Template.Class_Page.helpers({
   skills: function (){
     return Template.instance().skills.get();
   }
-});
+});*/
