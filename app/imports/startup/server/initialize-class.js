@@ -3,6 +3,7 @@ import { Profiles } from '/imports/api/profile/ProfileCollection';
 import { Clubs } from '/imports/api/club/ClubCollection';
 import { Majors } from '/imports/api/major/MajorCollection';
 import { _ } from 'meteor/underscore';
+/*
 import { Assets } from 'meteor/assets'
 
 let restoreJSON = {};
@@ -12,3 +13,4 @@ return restoreJSON;
 }
 
 export const myJSON = restoreJSON;
+*/
