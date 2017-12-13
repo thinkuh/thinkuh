@@ -1,0 +1,7 @@
+<template name="Event_Page">
+  <div class="owl-carousel">
+    {{#each event in events}}
+    <div><img src="{{event.picture}}">{{event.name}}{{event.date}}</div>
+    {{/each}}
+  </div>
+</template>
