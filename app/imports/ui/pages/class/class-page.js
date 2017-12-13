@@ -5,7 +5,7 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import { _ } from 'meteor/underscore';
 import { Profiles } from '/imports/api/profile/ProfileCollection';
 import { Majors } from '/imports/api/major/MajorCollection';
-import { myJSON } from './initialize-class.js';
+/*import { myJSON } from './initialize-class.js';*/
 
 /*var json = require('/private/database/graphFile.json');*/
 
