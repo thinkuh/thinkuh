@@ -1,7 +1,7 @@
 <template name="Major_Page">
   {{#if Template.subscriptionsReady}}
   <div style="margin-top: 10px" class="ui container">
-    {{#let major = major}}
+    {{#let major = findMajor}}
     <h1>{{major.name}}</h1>
     <p>
       {{major.description}}

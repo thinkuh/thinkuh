@@ -18,7 +18,7 @@ Template.Major_Page.helpers({
   routeMajorName() {
     return FlowRouter.getParam('major');
   },
-  major() {
+  findMajor() {
     return Majors._collection.findOne({
       url: FlowRouter.getParam('major'),
     });
