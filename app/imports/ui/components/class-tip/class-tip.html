@@ -1,0 +1,8 @@
+<template name="Class_Tip">
+  <p>What's up buttercup?</p>
+  {{#if Template.subscriptionsReady}}
+    {{#let classTipData=(getClassTip classTipId)}}
+    {{/let}}
+  {{/if}}
+
+</template>
