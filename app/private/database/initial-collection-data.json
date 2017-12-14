@@ -85,8 +85,20 @@
         {
           "name": "The Altenberg Event",
           "date": "Now",
-          "description": "This is a test event.",
+          "description": "Finding Altenberg at POST 318B.",
           "picture": "/images/altenberg.jpg"
+        },
+        {
+          "name": "The Johnson Event",
+          "date": "12/14/2017",
+          "description": "Making sure we get a good grade.",
+          "picture": "/images/johnson.jpg"
+        },
+        {
+          "name": "The Jason Event",
+          "date": "12/15/2017",
+          "description": "Taking ICS 111 again.",
+          "picture": "/images/leigh.jpg"
         }
       ]
     },
