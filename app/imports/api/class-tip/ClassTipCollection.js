@@ -19,10 +19,12 @@ class ClassTipCollection extends BaseCollection {
   constructor() {
     super('ClassTip', new SimpleSchema({
       name: { type: String },
+      icon: { type: String },
       author: { type: String },
-      description: { type: String  },
+      description: { type: String },
       upvotingUsers: { type: Array },
       'upvotingUsers.$': { type: String },
+      parentCourse: { type: String }
     }, { tracker: Tracker }));
   }
 
@@ -37,14 +39,17 @@ class ClassTipCollection extends BaseCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined name.
    * @returns The newly created docID.
    */
-  define({ name, author, description, upvotingUsers }) {
+  define({ name, description, icon, author, upvotingUsers, parentCourse }) {
     check(name, String);
     check(description, String);
+    check(icon, String);
+    check(author, String);
     check(upvotingUsers, [String]);
+    check(parentCourse, String);
     if (this.find({ name }).count() > 0) {
       throw new Meteor.Error(`${name} is previously defined in another ClassTip`);
     }
-    return this._collection.insert({ name, description, upvotingUsers });
+    return this._collection.insert({ name, description, icon, author, upvotingUsers, parentCourse });
   }
 
   /**

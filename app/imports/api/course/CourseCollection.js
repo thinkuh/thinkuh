@@ -1,5 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '/imports/api/base/BaseCollection';
+import ClassTipCollection from '/imports/api/class-tip/ClassTipCollection';
 import { check } from 'meteor/check';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
@@ -23,6 +24,8 @@ class CourseCollection extends BaseCollection {
       major: { type: String },
       url: { type: String, regEx: /^\d{3}[A-Z]?$/ },
       description: { type: String, optional: true },
+      classTips: { type: Array },
+      'classTips.$': { type: String },
       forumId: { type: String },
     }, { tracker: Tracker }));
   }
@@ -44,10 +47,11 @@ class CourseCollection extends BaseCollection {
     check(url, String);
     check(description, String);
     const forumId = Forums.define({ comments: [] });
+    const classTips = [];
     if (this.find({ name }).count() > 0) {
       throw new Meteor.Error(`${name} is previously defined in another Major`);
     }
-    return this._collection.insert({ name, major, url, description, forumId });
+    return this._collection.insert({ name, major, url, description, classTips, forumId });
   }
 
   /**

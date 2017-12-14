@@ -1,8 +1,33 @@
 <template name="Class_Tip">
-  <p>What's up buttercup?</p>
   {{#if Template.subscriptionsReady}}
     {{#let classTipData=(getClassTip classTipId)}}
+      {{#if classTipData}}
+        <div class="ui attached segment">
+          <div class="content">
+            <a class="ui label class-tip-upvote">
+              {{#if hasUpvoted}}
+                <i class="yellow thumbs up icon"></i> {{getUpvotes}}
+              {{else}}
+                <i class="thumbs up icon"></i> {{getUpvotes}}
+              {{/if}}
+            </a>
+            {{#if (isLoggedIn classTipData.author)}}
+              <a class="ui right floated blue label class-tip-edit"><i class="pencil icon"></i></a>
+              <a class="ui right floated red label class-tip-delete"><i class="remove circle icon"></i></a>
+            {{/if}}
+
+            <i class="{{classTipData.icon}} large icon"></i>
+              {{> User_Popup profile=(getCommentProfile classTipData.author) }} writes:
+              <b>{{classTipData.name}}</b> | {{classTipData.description}}
+          </div>
+          {{#if isEditing}}
+            {{> Class_Tip_Textbox
+                classTipTextboxClass="js-class-tip-textbox-edit-tip-button"
+                buttonColor="blue"
+                headerText="Edit Tip"}}
+          {{/if}}
+        </div>
+      {{/if}}
     {{/let}}
   {{/if}}
-
 </template>

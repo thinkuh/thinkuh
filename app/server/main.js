@@ -5,3 +5,5 @@ import '/imports/api/club';
 import '/imports/api/major';
 import '/imports/api/comment';
 import '/imports/api/forum';
+import '/imports/api/course';
+import '/imports/api/class-tip';

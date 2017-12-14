@@ -130,6 +130,18 @@
           "description": "Introduction to the formal analysis of language, focusing on phonetics, phonology, morphology, syntax, semantics, historical linguistics, language acquisition, and related topics."
         }
       ]
+    },
+    {
+      "name": "ClassTipCollection",
+      "contents:": [
+        {
+          "name": "A dummy tip",
+          "icon": "green plus",
+          "description": "A tip so that the collection will be created lazily",
+          "author": "atasato",
+          "upvotingUsers": ["atasato"]
+        }
+      ]
     }
   ]
 }
