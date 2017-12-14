@@ -1,7 +1,19 @@
 .landing {
   padding: 30px 10px 30px 10px;
   background-color: #040;
+  background-image: url("./images/manoa.jpg");
+  background-size: cover;
   color: #FFF;
+}
+
+.backed {
+  padding: 20px 10px 20px 10px;
+  background-color: #040;
+  color: #FFF;
+}
+
+.spaced {
+  padding: 70px 0px 0px 0px;
 }
 
 .landing-section-1-welcome {
