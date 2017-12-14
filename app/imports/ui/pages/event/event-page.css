@@ -1,5 +1,18 @@
-/*
 img {
-  al
-}*/
+   display: block;
+  margin: auto;
+  width: 60%;
+ }
+
+h2 {
+text-align: center;
+}
+
+h3 {
+text-align: center;
+}
+
+iframe {
+display: block;
+}
 
