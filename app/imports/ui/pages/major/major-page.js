@@ -18,8 +18,10 @@ Template.Major_Page.helpers({
   routeMajorName() {
     return FlowRouter.getParam('major');
   },
-  majors() {
-    return Majors.find({}, { sort: { name: 1 } });
+  findMajor() {
+    return Majors._collection.findOne({
+      url: FlowRouter.getParam('major'),
+    });
   },
   getForumId() {
     const major = Majors._collection.findOne({

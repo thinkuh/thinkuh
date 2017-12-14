@@ -16,7 +16,14 @@
         {
           "name": "College of Arts and Sciences",
           "majors": [
-            "Information and Computer Sciences"
+            "Information and Computer Sciences",
+            "Mathematics"
+          ]
+        },
+        {
+          "name": "College of Language, Linguistics, and Literature",
+          "majors": [
+            "Linguistics"
           ]
         }
       ]
@@ -28,9 +35,27 @@
           "name": "Information and Computer Sciences",
           "url": "ICS",
           "courses": [
+            "Introduction to Computer Science I",
             "Software Engineering I"
           ],
           "description": "The Information and Computer Sciences Department at the University of Hawai‘i at Mānoa provides a supportive educational and research environment for students, faculty and academic visitors interested in computer science and information studies. We strive to produce innovative scholars ready to join the workforce in diverse fields related to the computing sciences, and we endeavor to conduct cutting-edge scientific and applied research for the benefit of Hawaii, the Pacific region, and the global community."
+        },
+        {
+          "name": "Linguistics",
+          "url": "LING",
+          "courses": [
+            "General Linguistics"
+          ],
+          "description": "Our department contributes to the interdisciplinary effort to understand the workings of the human mind through its experimental work on the language faculty, centered around the College’s Language Analysis and Experimentation Laboratories. We have well known and established specialists in the areas of language acquisition and psycholinguistics, we have been heavily involved in the university’s Cognitive Science Research Group from its inception, and we are strongly committed to the Medical School’s initiative to establish a joint degree program in neuroscience."
+        },
+        {
+          "name": "Mathematics",
+          "url": "MATH",
+          "courses": [
+            "Accelerated Calculus III",
+            "Introduction to Advanced Mathematics"
+          ],
+          "description": "Our mission within the College of Natural Sciences at the University of Hawaii at Manoa is to create new knowledge in Mathematics and apply that knowledge for the betterment of people everywhere."
         }
       ]
     },
@@ -72,7 +97,37 @@
           "name": "Software Engineering I",
           "major": "ICS",
           "url": "314",
-          "description": "ICS 314 is a fast-paced immersion into significant software engineering concepts and technologies."
+          "description": "Problem analysis and design, team-oriented development, quality assurance, configuration management, project planning. These topics are covered in the sequence 314-414."
+        },
+        {
+          "name": "Introduction to Computer Science I",
+          "major": "ICS",
+          "url": "111",
+          "description": "Overview of the fundamentals of computer science emphasizing problem solving, algorithm development, implementation, and debugging/testing using an object-oriented programming language."
+        },
+        {
+          "name": "Data Storage and Retrieval",
+          "major": "ICS",
+          "url": "321",
+          "description": "Data storage devices, timing and capacity, programming for files, hashed and indexed files, introduction to relational database systems."
+        },
+        {
+          "name": "Accelerated Calculus III",
+          "major": "MATH",
+          "url": "253A",
+          "description": "Vector calculus; maxima and minima in several variables; multiple integrals; line integrals, surface integrals and their applications."
+        },
+        {
+          "name": "Introduction to Advanced Mathematics",
+          "major": "MATH",
+          "url": "321",
+          "description": "Formal introduction to the concepts of logic, finite and infinite sets, functions, methods of proof and axiomatic systems. Learning mathematical expressions in writing is an integral part of the course."
+        },
+        {
+          "name": "General Linguistics",
+          "major": "LING",
+          "url": "320",
+          "description": "Introduction to the formal analysis of language, focusing on phonetics, phonology, morphology, syntax, semantics, historical linguistics, language acquisition, and related topics."
         }
       ]
     }
