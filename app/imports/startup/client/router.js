@@ -76,6 +76,15 @@ userRoutes.route('/filter', {
   },
 });
 
+export const eventPageRouteName = 'Event_Page';
+userRoutes.route('/events', {
+  name: eventPageRouteName,
+  action() {
+    BlazeLayout.render('User_Layout', { main: eventPageRouteName });
+  },
+});
+
+
 /*                        MAJOR ROUTES                      */
 
 function addMajorBodyClass() {

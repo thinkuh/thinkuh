@@ -8,9 +8,12 @@
     "test": "meteor test --driver-package meteortesting:mocha"
   },
   "dependencies": {
+    "babel": "^6.23.0",
     "babel-runtime": "^6.26.0",
+    "bcrypt": "^1.0.3",
     "commonmark": "^0.28.1",
     "meteor-node-stubs": "~0.2.0",
+    "runtime": "^0.14.1",
     "simpl-schema": "^0.3.2"
   },
   "devDependencies": {

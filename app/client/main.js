@@ -32,3 +32,4 @@ import '/imports/api/event';
 import '/imports/api/forum';
 import '/imports/api/major';
 import '/imports/api/profile';
+import '/imports/ui/pages/event';

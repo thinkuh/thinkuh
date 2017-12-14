@@ -1,7 +1,12 @@
 <template name="Class_Page">
+
+  <script src="http://d3js.org/d3.v2.min.js?2.9.3"></script>
+  <!--<img src="/images/courses.PNG" alt="ICS_Courses">-->
+
   <div style="margin-top: 10px"  class="ui container raised segment">
     {{#each course in courses}}
     <h3><a href="{{pathFor 'Course_Page' major=routeMajorName course=course.url}}">{{course.name}}</a></h3>
     {{/each}}
   </div>
+
 </template>
