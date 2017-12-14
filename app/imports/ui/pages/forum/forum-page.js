@@ -15,7 +15,7 @@ Template.Forum_Page.helpers({
     });
     if (FlowRouter.getParam('course')) {
       item = Courses._collection.findOne({
-        url: FlowRouter.getParam('course'),
+        url: FlowRouter.getParam('course'), major: FlowRouter.getParam('major'),
       });
     }
     //console.log('getForumId: course: ' + JSON.stringify(course));
