@@ -29,7 +29,7 @@ Template.Course_Page.helpers({
   },
   getForumId() {
     const course = Courses._collection.findOne({
-      url: FlowRouter.getParam('course'),
+      url: FlowRouter.getParam('course'), major: FlowRouter.getParam('major'),
     });
     //console.log('getForumId: course: ' + JSON.stringify(course));
     if (!course) { return null; }

@@ -21,7 +21,7 @@ class CourseCollection extends BaseCollection {
     super('Course', new SimpleSchema({
       name: { type: String },
       major: { type: String },
-      url: { type: String, regEx: /^\d{3}$/ },
+      url: { type: String, regEx: /^\d{3}[A-Z]?$/ },
       description: { type: String, optional: true },
       forumId: { type: String },
     }, { tracker: Tracker }));

@@ -1,8 +1,7 @@
 <template name="Major_Page">
   {{#if Template.subscriptionsReady}}
   <div style="margin-top: 10px" class="ui container">
-    {{#each major in majors}}
-    {{#if major.url = routeMajorName}}
+    {{#let major = major}}
     <h1>{{major.name}}</h1>
     <p>
       {{major.description}}
@@ -15,8 +14,7 @@
         Forum
       </a>
     </div>
-    {{/if}}
-    {{/each}}
+    {{/let}}
   </div>
   <!--
   <div class="ui container raised segment">
