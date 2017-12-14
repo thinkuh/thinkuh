@@ -1,18 +1,19 @@
 img {
-   display: block;
+  float: right !important;
+  display: inline;
   margin: auto;
   width: 50%;
  }
 
 h2 {
-text-align: center;
+text-align: center !important;
 }
 
 h3 {
-text-align: center;
+text-align: center !important;
 }
 
-iframe {
-display: block;
+body {
+display: block !important;
 }
 

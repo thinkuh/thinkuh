@@ -1,13 +1,15 @@
 <template name="Event_Page">
   <link rel="stylesheet" type="text/css" href="event/event-page.css">
-  <div class="owl-carousel">
-    {{#each event in events}}
-    <div><img src="{{event.picture}}"><br><h2>{{event.name}}</h2><br><h3>{{event.date}}</h3></div>
-    {{/each}}
-  </div>
+  <div class="ui center aligned container">
+    <div class="owl-carousel">
+      {{#each event in events}}
+      <div id = 'images'><img src="{{event.picture}}"><br><h2>{{event.name}}</h2><br><h3>{{event.date}}</h3></div>
+      {{/each}}
+    </div>
 
-  <div class = 'calendar'>
-  <iframe src="https://calendar.google.com/calendar/embed?src=hawaii.edu_q119thk4guqeltjc88ir87kfv0%40group.calendar.google.com&ctz=Pacific/Honolulu" style="border:solid 2px #777; border-radius: 5px; max-width: 100%; max-height: 100%" width="800" height="750" frameborder="0" scrolling="no"></iframe>
+    <div class = 'calendar'>
+      <iframe src="https://calendar.google.com/calendar/embed?src=hawaii.edu_q119thk4guqeltjc88ir87kfv0%40group.calendar.google.com&ctz=Pacific/Honolulu" style="border:solid 2px #777; border-radius: 5px; max-width: 100%; max-height: 100%" width="800" height="750" frameborder="0" scrolling="no"></iframe>
+    </div>
   </div>
 
   <script>
