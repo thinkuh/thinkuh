@@ -1,7 +1,9 @@
 <template name="Class_Page">
+
   <div style="margin-top: 10px"  class="ui container raised segment">
     {{#each course in courses}}
     <h3><a href="{{pathFor 'Course_Page' major=routeMajorName course=course.url}}">{{course.name}}</a></h3>
     {{/each}}
   </div>
+
 </template>

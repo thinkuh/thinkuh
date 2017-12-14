@@ -23,6 +23,7 @@
         </div>
       </div>
       <a class="{{isActiveRoute 'Filter_Page'}} {{#unless isUser}}disabled{{/unless}} item" href="{{#if isUser}}{{pathFor 'Filter_Page' username=routeUserName}}{{else}}#{{/if}}">Filter</a>
+      <a class="{{isActiveRoute 'Event_Page'}} {{#unless isUser}}disabled{{/unless}} item" href="{{#if isUser}}{{pathFor 'Event_Page' username=routeUserName}}{{else}}#{{/if}}">Event</a>
       <!-- a class="{{isActiveRoute 'Comment_Page'}} item" href="{{pathFor 'Comment_Page'}}">Comment</a -->
     </div>
     <div class="right aligned item">{{> Cas_Login }}</div>

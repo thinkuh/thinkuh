@@ -1,0 +1,19 @@
+img {
+  float: right !important;
+  display: inline;
+  margin: auto;
+  width: 50%;
+ }
+
+h2 {
+text-align: center !important;
+}
+
+h3 {
+text-align: center !important;
+}
+
+body {
+display: block !important;
+}
+

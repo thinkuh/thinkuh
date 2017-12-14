@@ -11,8 +11,7 @@
       {{/let}}
       <div class="content">
         {{#if commentData}}
-          <!-- a class="author">{{commentData.author}}</a -->
-          <a class="author">{{> User_Popup profile=(getCommentProfile commentData.author) }}</a>
+          <a class="author">{{> User_Popup profile = (getCommentProfile commentData.author) }}</a>
         {{else}}
           <div class="author">[Deleted]</div>
         {{/if}}
