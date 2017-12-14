@@ -5,6 +5,22 @@
     <p>
       {{course.description}}
     </p>
+
+    <div style="ui container">
+    <h3 style="ui header">Class Tips</h3>
+    {{#if getClassTips}}
+      {{#each classTip in getClassTips}}
+        {{> Class_Tip classTipId=classTip parentCourse=course._id}}
+      {{/each}}
+    {{else}}
+      <p>No tips yet! Why not write one?</p>
+    {{/if}}
+      {{> Class_Tip_Textbox
+          classTipTextboxClass="js-class-tip-textbox-create-tip-button"
+          buttonColor="blue"
+          headerText="Add Tip"}}
+    </div>
+      <p></p>
     <div class="ui secondary pointing four item menu">
       <a class="item" href="{{pathFor 'Forum_Page' major=routeMajorName course=routeCourseName }}">
         Forum

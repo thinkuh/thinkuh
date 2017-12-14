@@ -1,0 +1,31 @@
+<template name="Class_Tip_Textbox">
+  <div class="ui container segment">
+    <h3>{{#if headerText}}{{headerText}}{{else}}Tip{{/if}}</h3>
+    <form class="ui reply form text-editor-box {{classTipTextboxClass}}">
+      <div class="field">
+        <label>Icon:</label>
+        <div class="ui selection dropdown">
+          <input type="hidden" name="class-tip-icon">
+          <i class="dropdown icon"></i>
+          <div class="default text">Icon</div>
+          <div class="menu">
+            <div class="item" data-value="green plus"><i class="green plus icon"></i></div>
+            <div class="item" data-value="red minus"><i class="red minus icon"></i></div>
+            <div class="item" data-value="blue info"><i class="blue info icon"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Title</label>
+        <input type="text" name="class-tip-textbox-name" class="class-tip-textbox" placeholder="{{textContent}}">
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <input type="text" name="class-tip-textbox-description" class="class-tip-textbox" placeholder="{{textContent}}">
+      </div>
+      <button class="ui {{buttonColor}} labeled submit icon button class-tip-textbox-submit" type="submit">
+        <i class="icon edit"></i> Submit
+      </button>
+    </form>
+  </div>
+</template>

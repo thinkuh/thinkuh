@@ -1,11 +1,9 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '/imports/api/base/BaseCollection';
-import ClassTipCollection from '/imports/api/class-tip/ClassTipCollection';
 import { check } from 'meteor/check';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
 import { Tracker } from 'meteor/tracker';
-import { Forums } from '/imports/api/forum/ForumCollection';
 
 /** @module Interest */
 
@@ -13,20 +11,20 @@ import { Forums } from '/imports/api/forum/ForumCollection';
  * Represents a specific interest, such as "Software Engineering".
  * @extends module:Base~BaseCollection
  */
-class CourseCollection extends BaseCollection {
+class ClassTipCollection extends BaseCollection {
 
   /**
    * Creates the Interest collection.
    */
   constructor() {
-    super('Course', new SimpleSchema({
+    super('ClassTip', new SimpleSchema({
       name: { type: String },
-      major: { type: String },
-      url: { type: String, regEx: /^\d{3}[A-Z]?$/ },
-      description: { type: String, optional: true },
-      classTips: { type: Array },
-      'classTips.$': { type: String },
-      forumId: { type: String },
+      icon: { type: String },
+      author: { type: String },
+      description: { type: String },
+      upvotingUsers: { type: Array },
+      'upvotingUsers.$': { type: String },
+      parentCourse: { type: String }
     }, { tracker: Tracker }));
   }
 
@@ -41,17 +39,17 @@ class CourseCollection extends BaseCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined name.
    * @returns The newly created docID.
    */
-  define({ name, major, url, description }) {
+  define({ name, description, icon, author, upvotingUsers, parentCourse }) {
     check(name, String);
-    check(major, String);
-    check(url, String);
     check(description, String);
-    const forumId = Forums.define({ comments: [] });
-    const classTips = [];
+    check(icon, String);
+    check(author, String);
+    check(upvotingUsers, [String]);
+    check(parentCourse, String);
     if (this.find({ name }).count() > 0) {
-      throw new Meteor.Error(`${name} is previously defined in another Major`);
+      throw new Meteor.Error(`${name} is previously defined in another ClassTip`);
     }
-    return this._collection.insert({ name, major, url, description, classTips, forumId });
+    return this._collection.insert({ name, description, icon, author, upvotingUsers, parentCourse });
   }
 
   /**
@@ -60,9 +58,9 @@ class CourseCollection extends BaseCollection {
    * @returns { String } An interest name.
    * @throws { Meteor.Error} If the interest docID cannot be found.
    */
-  findName(courseID) {
-    this.assertDefined(courseID);
-    return this.findDoc(courseID).name;
+  findName(clubID) {
+    this.assertDefined(clubID);
+    return this.findDoc(clubID).name;
   }
 
   /**
@@ -71,8 +69,8 @@ class CourseCollection extends BaseCollection {
    * @returns { Array }
    * @throws { Meteor.Error} If any of the instanceIDs cannot be found.
    */
-  findNames(courseIDs) {
-    return courseIDs.map(courseID => this.findName(courseID));
+  findNames(classTipIds) {
+    return classTipIds.map(id => this.findName(id));
   }
 
   /**
@@ -120,14 +118,12 @@ class CourseCollection extends BaseCollection {
   dumpOne(docID) {
     const doc = this.findDoc(docID);
     const name = doc.name;
-    const major = doc.major;
-    const url = doc.url;
     const description = doc.description;
-    return { name, major, url, description };
+    return { name, description };
   }
 }
 
 /**
  * Provides the singleton instance of this class to all other entities.
  */
-export const Courses = new CourseCollection();
+export const ClassTips = new ClassTipCollection();
